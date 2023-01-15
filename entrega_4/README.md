@@ -21,7 +21,7 @@ localhost:8080
 
 <b>PRODUCTOS</b>
 
-```json
+```PowerShell
 GET /api/products
 GET /api/products/:pid
 POST /api/products
@@ -33,7 +33,7 @@ DELETE /api/products/:pid
 
 ```json
 //CREAR PRODUCTO
-POST /api/products
+//POST /api/products
 
 {
   "title": "Producto",
@@ -59,7 +59,7 @@ POST /api/carts/:cid/products/:pid
 
 ```json
 //CREAR CARRITO
-POST /api/carts/
+//POST /api/carts/
 
 {
 
@@ -67,7 +67,7 @@ POST /api/carts/
 ```
 ```json
 //AGREGAR PRODUCTO AL CARRITO
-POST /api/carts/:cid/products/:pid
+//POST /api/carts/:cid/products/:pid
 
 {
   "product": 2,
