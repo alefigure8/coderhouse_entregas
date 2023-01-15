@@ -26,3 +26,5 @@ npm run dev
 
 - Desafios
   - [Desafio 3](https://github.com/alefigure8/coderhouse_entregas/tree/master/entrega_3)
+  - [Desafio 4](https://github.com/alefigure8/coderhouse_entregas/tree/master/entrega_4)
+ 
