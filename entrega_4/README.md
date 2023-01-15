@@ -1,20 +1,23 @@
-##DESAFIO 4
+# DESAFIO 4
 
+## Primera entrega del proyecto final.
+<br>
+<b>DESCRIPCION: </b>
+Desarrollar un servidor que contenga los endpoints y servicios necesarios para gestionar los productos y carritos de compras de un e-commerce.
+<br>
+<br>
 <b>Profesor:</b> Farid Sesin</br>
 <b>Tutor:</b> Felipe Ramos</br>
 <b>Alumno:</b> Alejandro Gomez Nieto</br>
+<br>
 
-<b>Primera entrega del proyecto final.</b>
-
-Desarrollar un servidor que contenga los endpoints y servicios necesarios para gestionar los productos y carritos de compras de un e-commerce.
-
-<b>BASE URL</b>
+## BASE URL
 
 ```PowerShell
 localhost:8080
 ```
 
-#ENDPOINTS
+## ENDPOINTS
 
 <b>PRODUCTOS</b>
 
