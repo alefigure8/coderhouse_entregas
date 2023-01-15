@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //RUTAS
 app.use("/api/products", routerProducts);
-app.use("/api/cart", routerCart);
+app.use("/api/carts", routerCart);
 
 //INICIAR SERVIDOR
 const server = app.listen(PORT, () => {
