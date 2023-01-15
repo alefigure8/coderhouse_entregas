@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductManager from "../ProductManager.js";
+import ProductManager from "../model/ProductManager.js";
 
 const router = Router();
 
@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     const listaProductos = await productManager.getProducts();
     res.status(200).json({ status: "success", payload: listaProductos });
   } catch (error) {
-    res.status(400).json({ status: "error", error: "Ocurrió un error" });
+    res.status(500).json({ status: "error", error: error.message });
   }
 });
 
@@ -37,9 +37,10 @@ router.post('/', async (req, res)=>{
 
 router.put('/:pid', async (req, res)=>{
     try {
+        const pid = parseInt(req.params.pid);
         const {title, description, price, thumbnail, code, stock, category, status} = req.body;
         const productManager = new ProductManager();
-        const productoAgregado = await productManager.updateProduct(title, description, price, thumbnail, code, stock, category, status);
+        const productoAgregado = await productManager.updateProduct(pid, title, description, price, thumbnail, code, stock, category, status);
         res.status(200).json({status: "success", payload: productoAgregado});
     } catch (error) {
         res.status(400).json({ status: "error", error: "Ocurrió un error" });
