@@ -15,7 +15,15 @@ class ProductManager {
   }
 
   //Add new
-  async addProduct(title, description, price, thumbnail, code, stock, category) {
+  async addProduct(
+    title,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock,
+    category
+  ) {
     try {
       this.products = await this.getProducts();
       const newProduct = {};
@@ -31,13 +39,18 @@ class ProductManager {
         newProduct.title = title;
         newProduct.description = description;
         newProduct.price = price;
-        newProduct.thumbnail = thumbnail;
+        newProduct.thumbnail = [];
+        
+        if(Array.isArray(thumbnail))
+          thumbnail.forEach((x) => newProduct.thumbnail.push(x));
+        else
+        newProduct.thumbnail.push(thumbnail);
+
         newProduct.stock = stock;
         newProduct.category = category;
         newProduct.status = true;
 
         this.products.push(newProduct);
-        console.log(this.products)
 
         await fs.promises.writeFile(
           this.path,
@@ -84,7 +97,17 @@ class ProductManager {
   }
 
   //Update
-  async updateProduct(id, title, description, price, thumbnail, code, stock, category, status) {
+  async updateProduct(
+    id,
+    title,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock,
+    category,
+    status
+  ) {
     try {
       this.products = await this.getProducts();
       const updatedUser = await this.getProductById(id);
@@ -93,14 +116,17 @@ class ProductManager {
         updatedUser.id;
         updatedUser.code = code != undefined ? code : updatedUser.code;
         updatedUser.title = title != undefined ? title : updatedUser.title;
-        updatedUser.description = description != undefined ? description : updatedUser.description;
+        updatedUser.description =
+          description != undefined ? description : updatedUser.description;
         updatedUser.price = price != undefined ? price : updatedUser.price;
-        updatedUser.thumbnail = thumbnail != undefined ? thumbnail : updatedUser.thumbnail;
+        updatedUser.thumbnail =
+          thumbnail != undefined ? thumbnail : updatedUser.thumbnail;
         updatedUser.stock = stock != undefined ? stock : updatedUser.stock;
-        updatedUser.category = category != undefined ? category : updatedUser.category;
+        updatedUser.category =
+          category != undefined ? category : updatedUser.category;
         updatedUser.status = status != undefined ? status : updatedUser.status;
 
-        this.products.map(x=> x.code === code ? updatedUser : x);
+        this.products.map((x) => (x.code === code ? updatedUser : x));
 
         await fs.promises.writeFile(
           this.path,
@@ -122,10 +148,9 @@ class ProductManager {
     try {
       this.products = await this.getProducts();
       const deleteUser = await this.getProductById(id);
-      
+
       if (deleteUser != "Not Found") {
-        
-        const listaModificada = this.products.filter(x => x.id !== id);
+        const listaModificada = this.products.filter((x) => x.id !== id);
 
         await fs.promises.writeFile(
           this.path,
