@@ -22,7 +22,7 @@ socket.on("productos", (prods) => {
         </div>
         <div class="cardDescription">
             <p>${prod.description}</p>
-            <p class="cardSmall">Precio: ${prod.price}</p>
+            <p class="cardSmall">Precio: $${prod.price}</p>
             <p class="cardSmall">Códgo: ${prod.code}</p>
             <p class="cardSmall">Stock: ${prod.stock}</p>
             <p class="cardSmall">Categoría: ${prod.category}</p>
