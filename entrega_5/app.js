@@ -4,7 +4,6 @@ import handlebars from "express-handlebars";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import routerProducts from "./routes/router.products.js";
-import routerCart from "./routes/router.cart.js";
 import routerViews from "./routes/router.views.js";
 
 //CONFIGURACIONES
@@ -24,7 +23,6 @@ app.use(express.urlencoded({ extended: false }));
 //RUTAS
 app.use("/", routerViews);
 app.use("/api/products", routerProducts);
-app.use("/api/carts", routerCart);
 
 //PUBLIC
 app.use(express.static(__dirname + "/public"));
