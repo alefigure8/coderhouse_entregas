@@ -1,8 +1,6 @@
 # DESAFIO 5
 
-## Primera entrega del proyecto final.
-<br>
-<b>DESCRIPCION: </b>
+## Descripción
 Configurar nuestro proyecto para que trabaje con Handlebars y websocket.
 <br>
 <br>
