@@ -7,6 +7,7 @@ body{
     padding: 0;
 }
 
+/*CONTAINER*/
 .container{
     background-color: rgb(196, 191, 191);
     min-height: 100vh;
@@ -14,24 +15,50 @@ body{
     margin: 0 auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     display: grid;
-    grid-template-rows: 100px 1fr 80px;   
+    grid-template-rows: 120px 1fr 80px;   
 
 }
 
 /*HEADER*/
-
 .banner{
     color: white;
     background-color: #333;
-    padding: 10px 10px;
+    padding: 20px 10px 0px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-/*FOOTER*/
+/*NAV*/
+.navMain{
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 
+.nav_ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav_ul li a{
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+}
+
+.nav_ul li a:hover{
+    color: #aaa;
+}
+
+/*FOOTER*/
 .footer{
     background-color: #333;
     color: white;
@@ -49,14 +76,24 @@ body{
     gap: 20px;
 }
 
+.footer_ul li a{
+    text-decoration: none;
+    color: white;
+}
+
+.footer_ul li a:hover{
+    color: #aaa;
+}
+
+/*MAIN*/
 .mainPage
 {
     padding: 40px;
 }
 
 /*CARDS*/
-
 .cards{
+    padding: 20px 0px 0px 0px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -144,33 +181,4 @@ body{
     .formBox{
         grid-template-columns: repeat(1, 1fr);
     }
-}
-
-/*NAV*/
-.navMain{
-    width: 100%;
-    background-color: #333;
-    color: white;
-    padding: 0px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-.nav_ul{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    gap: 20px;
-}
-
-.nav_ul li a{
-    text-transform: uppercase;
-    text-decoration: none;
-    color: white;
-}
-
-.nav_ul li a:hover{
-    color: #aaa;
 }
