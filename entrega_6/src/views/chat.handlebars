@@ -1,0 +1,33 @@
+<div class="chat">
+    <div class="userNameChat">
+    <img src="img/user.png" alt="userPlaceholder" class="userPlaceholder">
+    <div class="userNameContainer">
+        <h4 id="nombreUsuario" class="userName"></h4>
+        <p class="online">Online</p>
+    </div>
+    </div>
+
+    <div class="chatContainer" style="overflow-y:scroll">
+        <div id="chatParrafo"></div>
+    </div>
+
+    <div class="sendTextChat">
+        <iframe name="formIO" style="display:none;"></iframe>
+        <form action="/chat" class="formularioChat" id="formulario" method="POST" target="formIO">
+            <input type="hidden" name="usuario" id="usuario" />
+            <textarea  class="inputChat" name="mensaje" id="mensaje"></textarea>
+            <input type="submit" class="btnChat" value="ENVIAR" />
+        </form>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<link
+  href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin/wordpress-admin.css"
+  rel="stylesheet"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"
+></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>
