@@ -52,6 +52,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Cliente desconectado", socket.id);
   });
+
+  socket.on('newUser', user => {
+    socket.broadcast.emit('broadcast', user);
+  })
 });
 
 export default io;
