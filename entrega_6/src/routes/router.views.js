@@ -70,6 +70,8 @@ router.post("/realtimeproducts", async (req, res) => {
   }
 });
 
+// CHAT MENSAJES
+
 router.get('/chat', async (req, res)=>{
   try {
     const messageManeger = new MessageManeger();
@@ -83,10 +85,11 @@ router.get('/chat', async (req, res)=>{
   }
 });
 
+// CHAT ENVIAR MENSAJES
 router.post('/chat', async (req, res)=>{
   try {
-    const { usuario, mensaje } = req.body;
     const messageManeger = new MessageManeger();
+    const { usuario, mensaje } = req.body;
     await messageManeger.addMessage(usuario, mensaje);
     const messages = await messageManeger.getMessages();
     io.sockets.emit("messages", messages);
