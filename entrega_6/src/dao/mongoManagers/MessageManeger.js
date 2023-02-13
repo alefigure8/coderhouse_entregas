@@ -6,16 +6,17 @@ class MessageManeger{
     }
     async getMessages(){
         try{
-            const messages = await messagesModel.find().lean();
-            return messages;
+            this.messages = await messagesModel.find().lean();
+            return this.messages;
         }catch(error){
             throw new Error(error);
         }
     }
     async addMessage(usuario, mensaje){
         try{
-            const newMessage = await messagesModel.create({usuario, mensaje});
-            return newMessage;
+            await messagesModel.create({usuario, mensaje});
+            this.messages.push({usuario, mensaje, fecha: new Date()});
+            return this.messages;
         }catch(error){
             throw new Error(error);
         }
