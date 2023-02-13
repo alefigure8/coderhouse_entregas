@@ -50,7 +50,6 @@ if (!usuario) {
     title: "BIENVENIDO",
     text: "Ingrese su nombre de usuario",
     input: "text",
-    buttonColor: "#f39c12",
     inputValidator: (value) => {
       if (!value) return "Debe ingresar un nombre de usuario";
     },
