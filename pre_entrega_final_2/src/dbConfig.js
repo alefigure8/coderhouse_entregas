@@ -4,7 +4,7 @@ dotenv.config();
 
 //VARIABLE DE ENTORNO
 // eslint-disable-next-line no-undef
-const URI = `mongodb+srv://admin:${process.env.MONGO_PASS}@cluster0.62nsj.mongodb.net/ecommerce`;
+const URI = process.env.MONGO_URI;
 
 // CONEXION A LA BASE DE DATOS
 const dbConfig = async () => {
