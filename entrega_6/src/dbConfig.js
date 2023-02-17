@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 //VARIABLE DE ENTORNO
-const URI = 'mongodb+srv://admin:CGfcsW93xVPFluzk@cluster0.62nsj.mongodb.net/ecommerce';
+const URI = 'mongodb+srv://admin:*********@cluster0.62nsj.mongodb.net/ecommerce';
 
 // CONEXION A LA BASE DE DATOS
 const dbConfig = async () => {
