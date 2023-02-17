@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
+import dotenv  from "dotenv";
+dotenv.config();
 
 //VARIABLE DE ENTORNO
-const URI = 'mongodb+srv://admin:CGfcsW93xVPFluzk@cluster0.62nsj.mongodb.net/ecommerce';
+// eslint-disable-next-line no-undef
+const URI = `mongodb+srv://admin:${process.env.MONGO_PASS}@cluster0.62nsj.mongodb.net/ecommerce`;
 
 // CONEXION A LA BASE DE DATOS
 const dbConfig = async () => {
