@@ -109,6 +109,7 @@ textarea {
   grid-gap: 20px;
 }
 
+.productCard,
 .card {
   background-color: white;
   padding: 20px;
@@ -165,6 +166,76 @@ textarea {
 
 .cardSmall {
   font-size: 12px;
+}
+
+.quantity{
+  width: 50px;
+}
+
+
+/* CARD DESCRIPTION*/
+.mainDescription{
+  display: flex;
+}
+
+.rightDescription{
+  margin: 0 10px;
+}
+
+.rightDescription h3,
+.rightDescription p {
+  margin: 10px 0;
+}
+
+.categoryDescription{
+  color: #aaa;
+  font-size: 12px;
+}
+
+.precioDescription{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* CART */
+.cart{
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+.cartDescription{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 50px 50px;
+  align-items: center;
+}
+
+.cartDescription input{
+  max-height: 20px;
+  max-width: 60px;
+}
+
+
+.btnProductoCarrito{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25;
+  min-height: 25px;
+  color: white;
+  font-size: 10px;
+  padding: 5px;
+  border-radius: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.btnBackGroundDelete{
+  background-color: #661c1c;
+}
+.btnBackGroundUpdate{
+  background-color: #1c662f;
 }
 
 /*FORM*/
