@@ -64,22 +64,28 @@ GET/api/products?sort='asc'/'desc
 POST/api/carts/
 
 //Obtener carrito
-GET/api/carts/:id
+GET/api/carts/:cid
+
+// Agregar arreglo de productos al carrito
+PUT /api/carts/:cid
 
 //Obtener productos del carrito
-GET/api/carts/:id/products
+GET/api/carts/:cid/products
 
 //Agregar producto al carrito
-POST/api/carts/:id/product/:id
-
-//Eliminar producto del carrito
-DELETE/api/carts/:id/product/:id
+POST/api/carts/:cid/product/:pid
 
 //Actualizar producto del carrito
-PUT/api/carts/:id/product/:id
+PUT/api/carts/:cid/product/:pid
+
+//Eliminar producto del carrito
+DELETE/api/carts/:cid/product/:pid
 
 //Eliminar carrito
-DELETE/api/carts/:id
+DELETE/api/carts/:cid
+
+//Vaciar carrito
+DELETE/api/carts/:cid/product
 ```
 
 <b>PRODUCTO BODY PARA POSTMAN</b>
@@ -110,3 +116,17 @@ DELETE/api/carts/:id
   "quantity": <CANTIDAD>
 }
 ```
+```powershell
+//AGREGAR ARREGLO DE PRODUCTO AL CARRITO
+//POST /api/products/:cid
+  [
+    {
+      "product":"63e7ea72653668f3ec4cff30",
+      "quantity": 1
+    },
+    {
+      "product": "63e7ec24653668f3ec4cff3b",
+      "quantity": 2
+    }
+  ]
+  ```
