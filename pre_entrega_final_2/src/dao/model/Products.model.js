@@ -41,6 +41,7 @@ const productSchema = new mongoose.Schema({
     }
 })
 
+// PAGINATE
 productSchema.plugin(mongoosePaginate);
 
 export const productsModel = mongoose.model("Products", productSchema);
