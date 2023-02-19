@@ -39,12 +39,13 @@ class ProductManager {
     }
   }
 
-  //Get all
+  //Obtener todos los productos
   async getProducts(querys) {
     try {
       const {
         limit = 10,
         page = 1,
+        lean =  true,
         collation = {
           locale: "en",
           strength: 2,
@@ -52,7 +53,7 @@ class ProductManager {
       } = querys;
 
       const query = {};
-      const options = { limit, page, collation };
+      const options = { limit, page, collation, lean };
 
       Object.keys(querys).forEach((key) => {
         const tags = [
@@ -80,16 +81,12 @@ class ProductManager {
     }
   }
 
-  //Get all
+  //Obetener todos los productos para vistas
   async getViewProducts() {
     try {
-      const query = {};
-      const options = {
-        limit: 10,
-        lean: true,
-      };
-      this.products = await productsModel.paginate(query, options);
-      return this.products.docs;
+
+      this.products = await productsModel.find().lean();
+      return this.products;
     } catch (error) {
       throw new Error(error);
     }
