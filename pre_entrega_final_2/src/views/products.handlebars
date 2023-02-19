@@ -1,0 +1,32 @@
+<div class="cards">
+  {{#each productos}}
+
+    {{#if status}}
+      <div class="card">
+        <div class="cardHeader">
+          <h3>{{title}}</h3>
+        </div>
+        <div class="cardBody">
+          <div class="cardimg">
+            {{#each thumbnail}}
+              {{#if @first}}
+                <img src="{{this}}" alt="Imagen del producto" />
+              {{/if}}
+            {{/each}}
+          </div>
+          <div class="cardDescription">
+              <p>{{description}}</p>
+              <p class="cardSmall">Precio: ${{price}}</p>
+              <p class="cardSmall">Códgo: {{code}}</p>
+              <p class="cardSmall">Stock: {{stock}}</p>
+              <p class="cardSmall">Categoría: {{category}}</p>
+          </div>
+        </div>
+        <div class="cardFooter">
+          <button class="btn" onclick="window.location.href='product/{{_id}}';">VER</button>
+        </div>
+      </div>
+    {{/if}}
+
+  {{/each}}
+</div>
