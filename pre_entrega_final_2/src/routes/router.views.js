@@ -73,7 +73,7 @@ router.get("/carts/:id", async(req, res) => {
     const cartsManager = new CartManager();
     const cart = await cartsManager.getCartById(id);
     cart[0].products.forEach(x => x.idCart = id)
-    res.render("carts", {cart: cart[0].products, titulo: "CART"});
+    res.render("carts", {idCart:id, cart: cart[0].products, titulo: "CART"});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
