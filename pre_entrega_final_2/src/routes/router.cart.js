@@ -53,8 +53,8 @@ router.post("/:cid/product/:pid", async (req, res) => {
     const pid = req.params.pid;
     const { quantity } = req.body;
     const cartManager = new CartManager();
-    await cartManager.updateCart(cid, pid, quantity);
-    res.redirect(`/carts/${cid}`);
+    const cart = await cartManager.updateCart(cid, pid, quantity, {new: true});
+    res.status(200).json({ status: "success", payload: cart });
   } catch (error) {
     res.status(400).json({ status: "error", error: "Ocurrió un error" });
   }
