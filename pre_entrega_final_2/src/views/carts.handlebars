@@ -1,14 +1,18 @@
 <div class="cart">
-  {{#each cart}}
-    <div class="cartDescription">
-      <p>{{product.title}}</p>
-      <p>Precio: ${{product.price}}</p>
-        <input type="number" name="quantity" class="priceCartDescription" value={{quantity}} />
-        <input type="submit" class="btnProductoCarrito btnBackGroundUpdate" id="btnUpdateProducto" quantity="{{quantity}}" id-cart="{{idCart}}" id-product="{{product._id}}" value="/">
-        <input type="submit" class="btnProductoCarrito btnBackGroundDelete" id="btnDeleteProducto" id-cart="{{idCart}}" id-product="{{product._id}}" value="X">
-    </div>
-  {{/each}}
-    <input type="submit" class="btn" id="btnVaciarCarrito" value="VACIAR">
+  {{#if cart.length}}
+    {{#each cart}}
+      <div class="cartDescription">
+        <p>{{product.title}}</p>
+        <p>Precio: ${{product.price}}</p>
+          <input type="number" name="quantity" class="priceCartDescription" value={{quantity}} />
+          <input type="submit" class="btnProductoCarrito btnBackGroundUpdate" id="btnUpdateProducto" quantity="{{quantity}}" id-cart="{{idCart}}" id-product="{{product._id}}" value="/">
+          <input type="submit" class="btnProductoCarrito btnBackGroundDelete" id="btnDeleteProducto" id-cart="{{idCart}}" id-product="{{product._id}}" value="X">
+      </div>
+    {{/each}}
+    <input type="submit" class="btn" id="btnVaciarCarrito" id-cart="{{idCart}}" value="VACIAR">
+    {{else}}
+      <p>El carrito está vacío</p>
+    {{/if}}
 </div>
 
 {{!-- SCRIPT --}}
