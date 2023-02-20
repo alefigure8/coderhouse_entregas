@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-undef
 const socket = io();
 
-// **** VARIABLES DOM **** //
-const cards = document.getElementById("cards");
-
 // **** PRODUCTOS **** //
+
+//variables
+const cards = document.getElementById("cards");
 
 // Renderizar productos
 socket.on("productos", (prods) => {
@@ -36,30 +36,95 @@ socket.on("productos", (prods) => {
 
 // **** FETCHS **** //
 
+//variables
+const productCart = document.querySelectorAll(".cartDescription");
+const btnVaciarCarrito = document.getElementById("btnVaciarCarrito");
+
 //Actualizar cantidad en producto al carrito
-const productCart = document.querySelectorAll(".cartDescription")
-productCart.forEach(cart => {
-  cart.children[3].addEventListener("click", async (e) => {
+productCart.forEach((cart) => {
+  //Boton uodate
+  const btnUpdate = Object.values(cart.children).find(
+    (btn) => btn.id == "btnUpdateProducto"
+  );
+
+  btnUpdate.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    // Cantidad del input
+    const quantity = Object.values(cart.children).find(
+      (el) => el.className == "priceCartDescription"
+    ).value;
+
+    const pid = e.target.getAttribute("id-product");
+    const cid = e.target.getAttribute("id-cart");
+
+    postCart(cid, pid, quantity);
+  });
+});
+
+async function postCart(cid, pid, quantity) {
+  try {
+    await fetch(`/api/carts/${cid}/product/${pid}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ quantity }),
+    }).then((data) => {
+      if (data.ok) window.location.reload();
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Borrar producto de carrito
+productCart.forEach((cart) => {
+  //Boton update
+  const btnUpdate = Object.values(cart.children).find(
+    (btn) => btn.id == "btnDeleteProducto"
+  );
+
+  btnUpdate.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const pid = e.target.getAttribute("id-product");
     const cid = e.target.getAttribute("id-cart");
 
-    postCart(cid, pid, cart.children[2].value)
-   
+    if (confirm("¿Está seguro que quiere eliminar el producto?"))
+      deleteProduct(cid, pid);
   });
-})
+});
 
-// Actualizar carrito
-async function postCart(cid, pid, quantity){
+async function deleteProduct(cid, pid) {
   try {
     await fetch(`/api/carts/${cid}/product/${pid}`, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({quantity}),
+      method: "DELETE",
+    }).then((data) => {
+      if (data.ok) window.location.reload();
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Vaciar carrio
+btnVaciarCarrito.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const cid = e.target.getAttribute("id-cart");
+
+  if (confirm("¿Está seguro que quiere vaciar el carrito"))
+    deleteAllProducts(cid);
+});
+
+async function deleteAllProducts(cid) {
+  try {
+    await fetch(`/api/carts/${cid}/product`, {
+      method: "DELETE",
+    }).then((data) => {
+      if (data.ok) window.location.reload();
     });
   } catch (error) {
     console.log(error);
