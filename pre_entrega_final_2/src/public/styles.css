@@ -29,6 +29,12 @@ textarea {
   grid-template-rows: 120px 1fr 80px;
 }
 
+.containerProducts{
+ min-height: 680px;
+  display: grid;
+  grid-template-rows: 1fr 30px;
+}
+
 /*HEADER*/
 .banner {
   color: white;
@@ -263,6 +269,32 @@ textarea {
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+/*PAGINATION*/
+
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btnPagination{
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
 
 /*CHAT*/
 .chat {
