@@ -27,6 +27,9 @@ localhost:8080/
 //Producto IO
 localhost:8080/realtimeproducts
 
+//Producto Paginacion
+localhost:8080/products
+
 //Cart
 localhost:8080/carts/:id
 
@@ -34,13 +37,7 @@ localhost:8080/carts/:id
 localhost:8080/chat
 ```
 
-<b>PRODUCTOS VIEW</b>
-
-```powershell
-//Crear producto IO
-POST/realtimeproducts
-```
-<b>PRODUCTOS API</b>
+<b>QUERYS</b>
 ```powershell
 //Crear producto IO
 GET/api/products
@@ -57,7 +54,25 @@ GET/api/products?sort='asc'/'desc
 
 ```
 
-<b>CARRITO</b>
+<b>PRODUCTO API</b>
+```powershell
+//Ver Productos
+GET/api/products
+
+//Crear Producto
+//POST /api/products
+
+//Obtener Producto
+GET/api/products/:id
+
+//Actualizar Producto
+PUT/api/products/:id
+
+//Eliminar Producto
+DELETE/api/products/:id
+```
+
+<b>CARRITO API</b>
 
 ```powershell
 //Crear carrito
@@ -118,7 +133,7 @@ DELETE/api/carts/:cid/product
 ```
 ```powershell
 //AGREGAR ARREGLO DE PRODUCTO AL CARRITO
-//POST /api/products/:cid
+//POST /api/carts/:cid
   [
     {
       "product":"63e7ea72653668f3ec4cff30",
