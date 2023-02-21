@@ -1,6 +1,8 @@
 import { Router } from "express";
 import io from "../app.js";
 
+// ****** PERSISTENCIA DE DATOS ****** //
+
 /* FILE SYSTEM*/
 //import ProductManager from "../dao/fileManagers/ProductManager.js";
 
@@ -10,6 +12,8 @@ import CartManager from "../dao/mongoManagers/CartManager.js";
 import MessageManeger from "../dao/mongoManagers/MessageManeger.js";
 
 const router = Router();
+
+// ****** ENTREGA ANTERIOR ****** //
 
 //DATOS DESDE HANDLEBARS
 router.get("/", async (req, res) => {
@@ -43,12 +47,73 @@ router.get("/realtimeproducts", async (req, res) => {
   }
 });
 
-//DATOS DESDE HANDLEBARS PAGINACION
+//POST DESDE SOCKET.IO
+router.post("/realtimeproducts", async (req, res) => {
+  try {
+    const { title, description, price, thumbnail, code, stock, category } =
+      req.body;
+
+    const productManager = new ProductManager();
+
+    // Agregar producto
+    await productManager.addProduct(
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock,
+      category
+    );
+
+    // Obtener data
+    const productos = await productManager.getProducts({});
+
+    // Enviar data al cliente
+    io.sockets.emit("productos", productos.docs);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// CHAT MENSAJES
+router.get('/chat', async (req, res)=>{
+  try {
+    const messageManeger = new MessageManeger();
+    const messages = await messageManeger.getMessages();
+    io.on("connection", (socket) => {
+      socket.emit("messages", messages);
+    });
+    res.render("chat", { titulo:"CHAT" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// CHAT ENVIAR MENSAJES
+router.post('/chat', async (req, res)=>{
+  try {
+    const messageManeger = new MessageManeger();
+    const { usuario, mensaje } = req.body;
+    await messageManeger.addMessage(usuario, mensaje);
+    const messages = await messageManeger.getMessages();
+    io.sockets.emit("messages", messages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+})
+
+export default router;
+
+
+// ****** PRE ENTREGA FINAL 2 ****** //
+
+//VISTA LISTADO DE PRODUCTOS DESDE HANDLEBARS PAGINACION
 router.get("/products", async (req, res) => {
   try {
     const productManager = new ProductManager();
     const productos = await productManager.getProducts(req.query);
-    res.render("products", { productos: productos.docs, pagination:productos, titulo:"PRODUCTOS" });
+    res.render("products", { productos, titulo:"PRODUCTOS" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -73,7 +138,7 @@ router.get("/carts/:id", async(req, res) => {
     const cartsManager = new CartManager();
     const cart = await cartsManager.getCartById(id);
     cart[0].products.forEach(x => x.idCart = id)
-    res.render("carts", {idCart:id, cart: cart[0].products, titulo: "CART"});
+    res.render("carts", {idCart:id, cart: cart[0].products, titulo: "CARRITO"});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -133,60 +198,3 @@ router.delete("/:cid/", async (req, res) => {
   }
 });
 
-//POST DESDE SOCKET.IO
-router.post("/realtimeproducts", async (req, res) => {
-  try {
-    const { title, description, price, thumbnail, code, stock, category } =
-      req.body;
-
-    const productManager = new ProductManager();
-
-    // Agregar producto
-    await productManager.addProduct(
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      category
-    );
-
-    // Obtener data
-    const productos = await productManager.getProducts();
-
-    // Enviar data al cliente
-    io.sockets.emit("productos", productos.docs);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// CHAT MENSAJES
-router.get('/chat', async (req, res)=>{
-  try {
-    const messageManeger = new MessageManeger();
-    const messages = await messageManeger.getMessages();
-    io.on("connection", (socket) => {
-      socket.emit("messages", messages);
-    });
-    res.render("chat", { titulo:"CHAT" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// CHAT ENVIAR MENSAJES
-router.post('/chat', async (req, res)=>{
-  try {
-    const messageManeger = new MessageManeger();
-    const { usuario, mensaje } = req.body;
-    await messageManeger.addMessage(usuario, mensaje);
-    const messages = await messageManeger.getMessages();
-    io.sockets.emit("messages", messages);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-})
-
-export default router;
