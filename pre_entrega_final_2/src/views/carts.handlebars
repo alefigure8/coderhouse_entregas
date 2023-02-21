@@ -5,7 +5,7 @@
         <p>{{product.title}}</p>
         <p>Precio: ${{product.price}}</p>
           <input type="number" name="quantity" class="priceCartDescription" value={{quantity}} />
-          <input type="submit" class="btnProductoCarrito btnBackGroundUpdate" id="btnUpdateProducto" quantity="{{quantity}}" id-cart="{{idCart}}" id-product="{{product._id}}" value="/">
+          <input type="submit" class="btnProductoCarrito btnBackGroundUpdate" id="btnUpdateProducto" quantity="{{quantity}}" id-cart="{{idCart}}" id-product="{{product._id}}" value="✓">
           <input type="submit" class="btnProductoCarrito btnBackGroundDelete" id="btnDeleteProducto" id-cart="{{idCart}}" id-product="{{product._id}}" value="X">
       </div>
     {{/each}}
@@ -16,5 +16,12 @@
 </div>
 
 {{!-- SCRIPT --}}
+<link
+  href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin/wordpress-admin.css"
+  rel="stylesheet"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"
+></script>
 <script src="/socket.io/socket.io.js" ></script>
 <script src="/index.js"></script>
