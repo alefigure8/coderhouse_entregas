@@ -62,6 +62,7 @@ class ProductManager {
           "price",
           "stock",
           "code",
+          "category",
           "status",
         ];
 
