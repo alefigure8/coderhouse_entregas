@@ -1,6 +1,7 @@
 import express from "express";
 import { Server } from "socket.io";
 import handlebars from "express-handlebars";
+import {helpers} from "./helpers/handlebars.js"
 import {__dirname} from "./utils.js";
 import dbConfig from "./dbConfig.js";
 import routerProducts from "./routes/router.products.js";
@@ -12,7 +13,9 @@ const app = express();
 const PORT = 8080;
 
 //HANDLEBARS
-app.engine("handlebars", handlebars.engine());
+app.engine("handlebars", handlebars.engine({
+    helpers
+}));
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
