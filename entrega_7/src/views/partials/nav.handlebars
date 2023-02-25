@@ -1,0 +1,16 @@
+<nav class="navMain">
+  <ul class="nav_ul">
+    <li><a href="/">Productos</a></li>
+    <li><a href="/realtimeproducts">Productos.IO</a></li>
+    <li><a href="/products">Productos Paginacion</a></li>
+    <li><a href="/carts/63f21bb8fdb70b8edd7e0f16">Carrito</a></li>
+    {{#if email}}
+      <li><a href="/profile">{{email}}</a></li>
+    {{else}}
+      <li><a href="/login">Login</a></li>
+    {{/if}}
+  </ul>
+  <ul class="nav_ul">
+    <li><a href="/chat">Chat</a></li>
+  </ul>
+</nav>
