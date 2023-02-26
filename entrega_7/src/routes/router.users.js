@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { usersModels } from "../dao/model/Users.model.js";
+import dotenv from 'dotenv'
+import UsersManager from "../dao/mongoManagers/UsersManager.js";
 const router = Router();
+
+dotenv.config();
 
 // RUTAS FILES STORE
 // const users = [];
@@ -74,9 +77,10 @@ router.post("/register", async (req, res) => {
       const { firstname, lastname, email, age, password } = req.body;
   
       // Verificar si el usuario está registrado
-      const existeUser = await usersModels.find({email});
+      const userManager = new UsersManager();
+      const existeUser = await userManager.getUserByEmail(email);
   
-      if (existeUser.length != 0) {
+      if (existeUser) {
         res.redirect("/errorRegister");
       } else {
         const user = {
@@ -86,7 +90,7 @@ router.post("/register", async (req, res) => {
           age,
           password
         };
-        usersModels.create(user);
+        userManager.addUser(user);
         res.redirect("/login");
       }
     } catch (error) {
@@ -95,19 +99,33 @@ router.post("/register", async (req, res) => {
   });
   
   // LOGIN
-  router.post("/login", (req, res) => {
+  router.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
   
       // Buscar usuario
-      const user = usersModels.find({email, password});
-  
+      const userManager = new UsersManager()
+      const user = await userManager.getUserByEmailAndPassword(email, password);
+
       //Validar pass
-      if (user.length != 0) {
+      if (user) {
         //Guardar session
         for (const key in req.body) {
           req.session[key] = req.body[key];
         }
+
+        //Logged
+        req.session.logged = true;
+
+        //Admin
+        // eslint-disable-next-line no-undef
+        if(user.email === process.env.MAIL_ADMIN)
+        {
+          req.session.isAdmin = true;
+        } else {
+          req.session.isAdmin = false;
+        }
+
         res.redirect("/profile");
       } else {
         res.redirect("/errorLogin");
