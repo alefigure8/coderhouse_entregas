@@ -1,7 +1,14 @@
 <div class="card">
     <div class="center column">
         <h2>Hola!</h2>
-        <p>{{email}}</p>
+        <p>Nombre: {{user.firstname}}</p>
+        <p>Apellido: {{user.lastname}}</p>
+        <p>Edad: {{user.age}}</p>
+        <p>Mail: {{user.email}}</p>
+        {{#if user.isAdmin}}
+            <h3>ADMIN</h3>
+            <input type="button" onclick="window.location.href = '/realtimeproducts'" value="Agregar Productos" class="btn w-50 mb-20">
+        {{/if}}
         <input type="button" onclick="window.location.href = '/api/users/logout'" value="Logout" class="btn w-50 mb-20">
     </div>
 </div>
