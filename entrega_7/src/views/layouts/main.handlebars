@@ -8,27 +8,22 @@
       href="https://plataforma.coderhouse.com/images/icons/pwa-round/icon-152.png"
       type="image/x-icon"
     />
-    <title>Entrega N 5</title>
+    <title>Entrega N 7</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <div class="container">
       <div class="banner">
         <h1 class="title">{{titulo}}</h1>
-        {{>nav email}}
+        {{!-- barra de navegacion --}}
+        {{>nav this}}
       </div>
+        {{!-- body --}}
       <div class="mainPage">
         {{{body}}}
       </div>
-      <div class="footer">
-        <ul class="footer_ul">
-          <li>Alejandro Gomez Nieto</li>
-          <li><a
-              href="https://github.com/alefigure8/coderhouse_entregas/tree/master/pre_entrega_final_2"
-              target="_blank"
-            >Github</a></li>
-        </ul>
-      </div>
+        {{!-- footer--}}
+      {{>footer}}
     </div>
   </body>
 </html>
