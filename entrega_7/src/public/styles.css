@@ -416,6 +416,10 @@ textarea {
   width: 45%;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .center{
   display: flex;
   justify-content: center;
@@ -432,4 +436,25 @@ textarea {
 
 .mb-20{
   margin-bottom: 20px;
+}
+
+.border-10{
+  border:rgba(0, 0, 0, 0.05) 1px solid;
+  border-radius: 10px;
+}
+
+.bg-gray{
+  background-color: #eee;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.text-medium {
+  font-size: 14px;
+}
+
+.text-small {
+  font-size: 12px;
 }
