@@ -1,7 +1,7 @@
-# PRE-ENTREGA FINAL 2
+# ENTREGA 7
 
 ## Descripción
-Segunda pre-entrega del proyecto final
+Implementación de login y registro de usuarios, y persistencia de datos en MongoDB.
 
 <br>
 <br>
@@ -24,17 +24,34 @@ localhost:8080
 //Producto
 localhost:8080/
 
-//Producto IO
+//Producto IO - RUTA PROTEGIDA
 localhost:8080/realtimeproducts
 
-//Producto Paginacion
+//Productos
 localhost:8080/products
 
-//Cart
+//Cart - RUTA PROTEGIDA
 localhost:8080/carts/:id
 
 //Chat
 localhost:8080/chat
+
+//Login
+localhost:8080/login
+
+//Registro - RUTA PROTEGIDA
+localhost:8080/register
+
+//Logout
+localhost:8080/logout
+
+// Error login
+localhost:8080/errorlogin
+
+// Error registro
+localhost:8080/errorregistro
+```
+
 ```
 
 <b>QUERYS</b>
