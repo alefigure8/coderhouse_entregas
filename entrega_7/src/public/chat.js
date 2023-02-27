@@ -8,7 +8,8 @@ const chatContainer = document.getElementById("chatContainer");
 
 // **** CHAT **** //
 
-let usuario = null;
+// Si está registrado no pregunta nombre
+let usuario = nombreUsuario.innerText == undefined ? null : nombreUsuario.innerText;
 
 // Alerta para ingresar nombre de usuario
 if (!usuario) {
@@ -35,6 +36,8 @@ if (!usuario) {
     .catch((error) => {
       console.log(error);
     });
+} else {
+  socket.emit("newUser", usuario);
 }
 
 socket.on("messages", (messages) => {
