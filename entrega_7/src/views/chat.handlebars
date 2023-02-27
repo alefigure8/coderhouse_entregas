@@ -2,7 +2,7 @@
     <div class="userNameChat">
     <img src="img/user.png" alt="userPlaceholder" class="userPlaceholder">
     <div class="userNameContainer">
-        <h4 id="nombreUsuario" class="userName"></h4>
+        <h4 id="nombreUsuario" class="userName">{{user.firstname}}</h4>
         <p class="online">Online</p>
     </div>
     </div>
@@ -14,7 +14,7 @@
     <div class="sendTextChat">
         <iframe name="formIO" style="display:none;"></iframe>
         <form action="/chat" class="formularioChat" id="formulario" method="POST" target="formIO">
-            <input type="hidden" name="usuario" id="usuario" />
+            <input type="hidden" name="usuario" id="usuario" value="{{user.firstname}}"/>
             <textarea  class="inputChat" name="mensaje" id="mensaje"></textarea>
             <input type="submit" class="btnChat" value="ENVIAR" />
         </form>
