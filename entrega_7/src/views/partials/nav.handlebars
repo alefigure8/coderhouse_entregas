@@ -7,7 +7,13 @@
   <ul class="nav_ul">
     {{#if user}}
       <li><a href="/carts/63f21bb8fdb70b8edd7e0f16">Carrito</a></li>
-      <li><a href="/profile">perfil</a></li>
+      <li><a href="/profile">
+      {{#if user.isAdmin}}
+        admin
+      {{else}}
+        usuario
+      {{/if}}
+      </a></li>
       <li><a href="/api/users/logout">Logout</a></li>
     {{else}}
       <li><a href="/login">Login</a></li>
