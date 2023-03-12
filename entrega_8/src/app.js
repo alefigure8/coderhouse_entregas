@@ -73,7 +73,8 @@ app.use(passport.session());
 app.use("/", routerViews);
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
-app.use("/api/users", routerUsers);
+//app.use("/api/users", routerUsers);
+app.use("/auth/users", routerUsers);
 
 //PUBLIC
 app.use(express.static(__dirname + "/public"));
