@@ -1,16 +1,5 @@
 import { usersModels } from "../model/Users.model.js";
 
-/*
-CarManager
-  -getCarts
-  -getCartById
-  -addCarts
-  -updateCart
-  -deleteCart
-  -deleteProduct
-  -emptyCart
-*/
-
 class UsersManager {
   constructor() {
     this.users = [];
