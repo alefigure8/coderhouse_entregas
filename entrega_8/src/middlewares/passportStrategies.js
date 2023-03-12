@@ -13,7 +13,7 @@ passport.use(
       clientID: process.env.GITHUBCLIENTID,
       // eslint-disable-next-line no-undef
       clientSecret: process.env.GITHUBCLIENTSECRET,
-      callbackURL: "http://localhost:8080/api/users/callbackGithub",
+      callbackURL: "http://localhost:8080/auth/users/callbackGithub",
     },
     async (accessToken, refreshToken, profile, done) => {
       const userManager = new UsersManager();
