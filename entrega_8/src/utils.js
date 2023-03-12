@@ -13,6 +13,7 @@ const SALTROUNDS = 10;
 const generateSalt = async () => {
     return bcrypt.genSalt(SALTROUNDS);
 }
+
 export const hashPass = async pass => {
     const salt = await generateSalt();
     return bcrypt.hash(pass, salt);
