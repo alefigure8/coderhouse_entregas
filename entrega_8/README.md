@@ -1,12 +1,12 @@
 # ENTREGA 8
 
 ## Descripción
-Implementación de login y registro de usuarios, y persistencia de datos en MongoDB.
+Refctorizar login y registro de usuarios con Bscrypt y Passport.
 
 <br>
 <br>
 <b>Profesor:</b> Farid Sesin</br>
-<b>Tutor:</b> Felipe Ramos</br>
+<b>Tutor:</b> Jerlib Gonzalez</br>
 <b>Alumno:</b> Alejandro Gomez Nieto</br>
 <br>
 
@@ -51,6 +51,20 @@ localhost:8080/errorlogin
 // Error registro
 localhost:8080/errorregistro
 ```
+
+<b>USERS</b>
+```powershell
+//Login
+GET/auth/users/login
+
+//Register
+POST /auth/users/register
+
+//Login y register con github
+GET/auth/users/github
+
+//callback github
+GET/auth/users/callbackGithub
 
 ```
 
