@@ -150,7 +150,6 @@ router.get(
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-
     // Buscar usuario
     const userManager = new UsersManager();
     const user = await userManager.getUserByEmail(email);
@@ -181,6 +180,9 @@ router.post("/login", async (req, res) => {
       } else {
         res.redirect("/errorLogin");
       }
+    }
+    else {
+      res.redirect("/errorLogin");
     }
   } catch (error) {
     console.log(error);
