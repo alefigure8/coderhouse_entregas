@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import dbConfig from "./dbConfig.js";
 import dotenv  from "dotenv";
+import passport from 'passport';
+import './middlewares/passportStrategies.js';
 import routerProducts from "./routes/router.products.js";
 import routerCarts from "./routes/router.cart.js";
 import routerViews from "./routes/router.views.js";
@@ -63,6 +65,9 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24
     }
 }))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //RUTAS
 app.use("/", routerViews);

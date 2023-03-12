@@ -2,8 +2,10 @@ import { Router } from "express";
 import dotenv from "dotenv";
 import { hashPass, comparePassword } from "../utils.js";
 import UsersManager from "../dao/mongoManagers/UsersManager.js";
-const router = Router();
+import passport from "passport";
 
+// Config
+const router = Router();
 dotenv.config();
 
 // RUTAS FILES STORE
@@ -100,6 +102,49 @@ router.post("/register", async (req, res) => {
     console.log(error);
   }
 });
+
+// GITHUB PASSPORT
+router.get(
+  "/github",
+  passport.authenticate("github", {scope: ["user:email"]})
+);
+
+router.get(
+  "/callbackGithub",
+  passport.authenticate("github", { failureRedirect: "/register" }),
+  async (req, res) => {
+    try {
+      // Buscar usuario
+      const userManager = new UsersManager();
+      const user = await userManager.getUserByEmail(req.user.email);
+  
+      //Validar pass
+      if (user) {
+          //Guardar en sesion los datos del usuario desde MongoDB
+          for (const key in user) {
+            req.session[key] = user[key];
+          }
+  
+          //Logged
+          req.session.logged = true;
+  
+          //Admin
+          // eslint-disable-next-line no-undef
+          if (user.email === process.env.MAIL_ADMIN) {
+            req.session.isAdmin = true;
+          } else {
+            req.session.isAdmin = false;
+          }
+  
+          res.redirect("/profile");
+        } else {
+          res.redirect("/errorLogin");
+        }  
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 // LOGIN
 router.post("/login", async (req, res) => {

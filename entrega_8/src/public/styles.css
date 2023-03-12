@@ -438,8 +438,35 @@ textarea {
   margin-bottom: 20px;
 }
 
+.mt-20{
+  margin-top: 20px;
+}
+
+
+.ml-10{
+  margin-left: 10px;
+}
+
+.mr-10{
+  margin-right: 10px;
+}
+
 .border-10{
   border:rgba(0, 0, 0, 0.05) 1px solid;
+  border-radius: 10px;
+}
+
+.border-top-10{
+  border-top:rgba(0, 0, 0, 0.05) 1px solid;
+
+}
+
+.border-top-10-black{
+  border-top:rgb(0, 0, 0) 1px solid;
+}
+
+.border-10-black{
+  border:rgb(0, 0, 0) 1px solid;
   border-radius: 10px;
 }
 
@@ -457,4 +484,54 @@ textarea {
 
 .text-small {
   font-size: 12px;
+}
+
+.steps {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.steps::before, .steps::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  margin-top: -3px;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+
+.steps::before{
+  margin-left: -100%;
+}
+
+.link {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link:hover{
+  color: #111;
+  text-decoration: underline;
+}
+
+.link:visited{
+  color: #666;
+}
+
+.line-middle {
+  width: 50%; 
+  text-align: center; 
+  border-bottom: 1px solid #000; 
+  line-height: 0.1em;
+  margin: 10px 0 20px; 
+} 
+
+.line-middle span { 
+   background:#fff; 
+   padding:0 10px; 
 }

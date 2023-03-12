@@ -11,7 +11,6 @@ CarManager
   -emptyCart
 */
 
-
 class UsersManager {
   constructor() {
     this.users = [];
@@ -19,17 +18,17 @@ class UsersManager {
 
   async getUserByEmailAndPassword(email, password) {
     try {
-      const user = await usersModels.findOne({email, password});
+      const user = await usersModels.findOne({ email, password });
       return user;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-   // Obtener usuario por mail
+  // Obtener usuario por mail
   async getUserByEmail(email) {
     try {
-      const user = await usersModels.findOne({email}).lean();
+      const user = await usersModels.findOne({ email }).lean();
       return user;
     } catch (error) {
       throw new Error(error);
@@ -46,13 +45,14 @@ class UsersManager {
     }
   }
 
-  
-
-
-
-
-
-
+  async getUserById(id) {
+    try {
+      const user = await usersModels.findOne({ id }).lean();
+      return user;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export default UsersManager;
