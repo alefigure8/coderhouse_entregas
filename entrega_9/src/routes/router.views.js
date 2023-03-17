@@ -20,10 +20,10 @@ router.get("/", async (req, res) => {
 });
 
 //DATOS DESDE SOCKET.IO
-router.get("/realtimeproducts", auth, async (req, res) => {
+router.get("/realtimeproducts", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
-    if(user.isAdmin){
+    if(user.role == "admin"){
       const productManager = new ProductManager();
 
       // Obtener data
@@ -231,7 +231,7 @@ router.get("/register", auth, (req, res) => {
 });
 
 //LOGIN
-router.get("/login", auth, (req, res) => {
+router.get("/login", jwtAuth, (req, res) => {
   const user = res.user;
   if (!user) {
     res.render("login", { titulo: "LOGIN" });
