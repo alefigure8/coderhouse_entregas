@@ -1,6 +1,6 @@
 import { Router } from "express";
 import io from "../app.js";
-import { auth } from "../middlewares/auth.js";
+import { auth, jwtAuth } from "../middlewares/auth.js";
 
 // ****** PERSISTENCIA DE DATOS ****** //
 
@@ -241,7 +241,7 @@ router.get("/login", auth, (req, res) => {
 });
 
 // PROFILE
-router.get("/profile", auth, async (req, res) => {
+router.get("/profile", jwtAuth, async (req, res) => {
   const user = res.user;
   if (user) {
     res.render("profile", { user, titulo: "PROFILE" });
