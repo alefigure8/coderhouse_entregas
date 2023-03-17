@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="center column">
+        <h2>Hola!</h2>
+        <p><b>Nombre:</b> {{user.firstname}}</p>
+        <p><b>Apellido:</b> {{user.lastname}}</p>
+        <p><b>Edad:</b> {{user.age}}</p>
+        <p><b>Mail:</b> {{user.email}}</p>
+        {{#if user.isAdmin}}
+           <div class="containerAdmin center column w-50 border-10 bg-gray p-10">
+                <h3>PANEL DE CONTROL</h3>
+                <input type="button" onclick="window.location.href = '/realtimeproducts'" value="Agregar Productos" class="btn w-auto mb-20 text-small ">
+           </div>
+        {{/if}}
+        <input type="button" onclick="window.location.href = '/auth/users/logout'" value="Logout" class="btn w-50 mb-20">
+    </div>
+</div>

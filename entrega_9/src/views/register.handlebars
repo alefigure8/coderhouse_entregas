@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="center column">
+    <form action="auth/users/register" method="POST" class="register">
+      <h2>REGISTRO</h2>
+      <input
+        type="text"
+        name="firstname"
+        id="firstname"
+        placeholder="First Name"
+        class="registerForm"
+        required
+      />
+      <input
+        type="text"
+        name="lastname"
+        id="lastname"
+        placeholder="Last Name"
+        class="registerForm"
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="E-Mail"
+        class="registerForm"
+        required
+      />
+      <input
+        type="number"
+        name="age"
+        id="age"
+        placeholder="Age"
+        class="registerForm"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Password"
+        class="registerForm"
+        required
+      />
+      <input type="submit" value="Crear" class="btn w-50" />
+    </form>
+    <p class="line-middle"><span>O también puedes</span></p>
+    <div class="center">
+      <button
+        type="button"
+        onclick="window.location.href = '/auth/users/github'"
+        class="btn w-auto mb-20 text-small"
+      ><i class="fa-brands fa-github text-medium mr-10"></i>Registrate con
+        Github</button>
+    </div>
+    <div class="center mt-20">
+      <p>Si ya estás registrado puedes
+        <a href="/login" class="link">iniciar sesión</a></p>
+    </div>
+  </div>
+</div>
