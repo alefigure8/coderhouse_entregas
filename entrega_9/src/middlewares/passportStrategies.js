@@ -1,7 +1,11 @@
 import passport from "passport";
 import { Strategy as githubStrategy } from "passport-github2";
+import { ExtractJwt, Strategy as jwtStrategy } from "passport-jwt";
 import UsersManager from "../dao/mongoManagers/UsersManager.js";
 import dotenv from "dotenv";
+import {cookieExtractor} from "../utils.js";
+
+// Config
 dotenv.config();
 
 // **** GITHUB **** //
@@ -45,3 +49,20 @@ passport.deserializeUser(async (_id, done) => {
   const usuario = await userManager.getUserById(_id);
   done(null, usuario);
 });
+
+
+// **** JWT **** //
+
+passport.use(
+  "jwt",
+  new jwtStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+      // eslint-disable-next-line no-undef
+      secretOrKey: process.env.JWT_SECRET,
+    },
+    async (payload, done) => {
+      done(null, payload);
+    }
+  )
+);
