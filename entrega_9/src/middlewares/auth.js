@@ -5,20 +5,22 @@ import jwt from "jsonwebtoken";
 export const auth = (req, res, next) => {
   if (req?.session?.logged) {
     res.user = req.session;
-    next();
   } else {
     res.user = undefined;
-    next();
   }
+  next();
 };
 
 // JWT
 export const jwtAuth = (req, res, next) => {
-  const isValid = jwt.verify(req.cookies["token"], process.env.JWT_SECRET);
-  if (isValid) {
-    res.user = isValid;
-    next();
-  } else {
-    res.status(401).json({ error: "No autorizado" });
-  }
-}
+  // eslint-disable-next-line no-undef
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
+    if (decoded) {
+      res.user = decoded;
+    } else {
+      res.user = undefined;
+    }
+  });
+
+  next();
+};
