@@ -1,6 +1,6 @@
 import { Router } from "express";
 import dotenv from "dotenv";
-import { hashPass, comparePassword } from "../utils.js";
+import { hashPass, comparePassword, generateToken } from "../utils.js";
 import UsersManager from "../dao/mongoManagers/UsersManager.js";
 import passport from "passport";
 
@@ -176,7 +176,11 @@ router.post("/login", async (req, res) => {
         } else{
           req.session.isAdmin = false;
         }
-    
+
+        // enviar token a cookie
+        const token = await generateToken(user);
+        res.cookie("token", token, { httpOnly: true });
+
         res.redirect("/profile");
       } else {
         res.redirect("/errorLogin");
