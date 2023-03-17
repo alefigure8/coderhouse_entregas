@@ -170,11 +170,18 @@ router.post("/login", async (req, res) => {
 
         //Admin
         // eslint-disable-next-line no-undef
+        // if(user.role == "admin")
+        // {
+        //   req.session.isAdmin = true;
+        // } else{
+        //   req.session.isAdmin = false;
+        // }
+
         if(user.role == "admin")
         {
-          req.session.isAdmin = true;
+          user.isAdmin = true;
         } else{
-          req.session.isAdmin = false;
+          user.isAdmin = false;
         }
 
         // enviar token a cookie
