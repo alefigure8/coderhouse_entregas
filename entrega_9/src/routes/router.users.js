@@ -106,7 +106,7 @@ router.post("/register", async (req, res) => {
 // GITHUB PASSPORT
 router.get(
   "/github",
-  passport.authenticate("github", {scope: ["user:email"]})
+  passport.authenticate("github", { scope: ["user:email"] })
 );
 
 router.get(
@@ -117,29 +117,29 @@ router.get(
       // Buscar usuario
       const userManager = new UsersManager();
       const user = await userManager.getUserByEmail(req.user.email);
-  
+
       //Validar pass
       if (user) {
-          //Guardar en sesion los datos del usuario desde MongoDB
-          for (const key in user) {
-            req.session[key] = user[key];
-          }
-  
-          //Logged
-          req.session.logged = true;
-  
-          //Admin
-          // eslint-disable-next-line no-undef
-          if (user.email === process.env.MAIL_ADMIN) {
-            req.session.isAdmin = true;
-          } else {
-            req.session.isAdmin = false;
-          }
-  
-          res.redirect("/profile");
+        //Guardar en sesion los datos del usuario desde MongoDB
+        for (const key in user) {
+          req.session[key] = user[key];
+        }
+
+        //Logged
+        req.session.logged = true;
+
+        //Admin
+        // eslint-disable-next-line no-undef
+        if (user.email === process.env.MAIL_ADMIN) {
+          req.session.isAdmin = true;
         } else {
-          res.redirect("/errorLogin");
-        }  
+          req.session.isAdmin = false;
+        }
+
+        res.redirect("/profile");
+      } else {
+        res.redirect("/errorLogin");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -159,41 +159,27 @@ router.post("/login", async (req, res) => {
       //Compare pass
       const isValidPass = await comparePassword(password, user.password);
 
+      //Guardar en cookie con token los datos del usuario desde MongoDB
       if (isValidPass) {
-        //Guardar en sesion los datos del usuario desde MongoDB
-        for (const key in user) {
-          req.session[key] = user[key];
-        }
-
-        //Logged
-        req.session.logged = true;
-
-        //Admin
-        // eslint-disable-next-line no-undef
-        // if(user.role == "admin")
-        // {
-        //   req.session.isAdmin = true;
-        // } else{
-        //   req.session.isAdmin = false;
-        // }
-
-        if(user.role == "admin")
-        {
+        if (user.role == "admin") {
           user.isAdmin = true;
-        } else{
+        } else {
           user.isAdmin = false;
         }
 
-        // enviar token a cookie
         const token = await generateToken(user);
-        res.cookie("token", token, { httpOnly: true });
+
+        res.cookie("token", token, {
+          httpOnly: true,
+          maxAge: 3600000,
+          signed: true,
+        });
 
         res.redirect("/profile");
       } else {
         res.redirect("/errorLogin");
       }
-    }
-    else {
+    } else {
       res.redirect("/errorLogin");
     }
   } catch (error) {
@@ -203,13 +189,7 @@ router.post("/login", async (req, res) => {
 
 //LOGOUT
 router.get("/logout", (req, res) => {
-  req.session.destroy((error) => {
-    if (!error) {
-      res.redirect("/login");
-    } else {
-      console.log(error);
-    }
-  });
+  res.clearCookie("token").redirect("/login");
 });
 
 export default router;
