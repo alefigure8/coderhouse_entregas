@@ -40,7 +40,6 @@ class CartManager {
   // Crear un carrito
   async addCart() {
     try {
-      console.log("addCart");
       const cart = {};
       cart.products = [];
       const newCart = cartsModel.create(cart);
