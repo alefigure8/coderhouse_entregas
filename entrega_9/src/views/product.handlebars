@@ -13,7 +13,7 @@
             <p class="precioDescription">${{product.price}}</p>
             <p>Stock: {{product.stock}}</p>
             <p>Descriptión: {{product.description}}</p>
-            <form action="/63f21bb8fdb70b8edd7e0f16/product/{{product._id}}" method="POST">
+            <form action="/{{user.cartId}}/product/{{product._id}}" method="POST">
                 <input type="number" name="quantity" id="quantity" min="1" value="1">
                 <button type="submit" class="btn" onclick="">AGREGAR A CARRITO</button>
             </form>
