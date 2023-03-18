@@ -1,5 +1,5 @@
 import { usersModels } from "../model/Users.model.js";
-
+import CartManager from "./CartManager.js";
 class UsersManager {
   constructor() {
     this.users = [];
@@ -27,7 +27,14 @@ class UsersManager {
   // Crear usuario
   async addUser(user) {
     try {
-      const newUser = usersModels.create(user);
+      //Create cart
+      const cartManager = new CartManager();
+      const newCart = await cartManager.addCart();
+      const userWithCart = { ...user, cartId: newCart._id };
+
+      //Create user
+      const newUser = usersModels.create(userWithCart);
+
       return newUser;
     } catch (error) {
       throw new Error(error);
