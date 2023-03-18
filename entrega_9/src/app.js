@@ -4,7 +4,7 @@ import handlebars from "express-handlebars";
 import {helpers} from "./helpers/handlebars.js"
 import {__dirname} from "./utils.js";
 import cookieParser from "cookie-parser";
-import session from "express-session";
+// import session from "express-session";
 import dbConfig from "./dbConfig.js";
 import dotenv  from "dotenv";
 import passport from 'passport';
@@ -13,9 +13,7 @@ import routerProducts from "./routes/router.products.js";
 import routerCarts from "./routes/router.cart.js";
 import routerViews from "./routes/router.views.js";
 import routerUsers from "./routes/router.users.js";
-
-// STORES SESSION
-import mongoStore from 'connect-mongo'
+import routerSession from "./routes/router.session.js";
 
 //CONFIGURACIONES
 const app = express();
@@ -32,31 +30,16 @@ app.set("views", __dirname + "/views");
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// SESSION MONGO
-app.use(session({
-  store: new mongoStore({
-    // eslint-disable-next-line no-undef
-    mongoUrl: process.env.MONGO_URI
-  }),
-    // eslint-disable-next-line no-undef
-    secret: process.env.SESSION,
-    resave: false,
-    saveUninitialized: false,
-    cookie:{
-        maxAge: 1000 * 60 * 60 * 24
-    }
-}))
-
+// eslint-disable-next-line no-undef
+app.use(cookieParser( process.env.COOKIE_SECRET ));
 app.use(passport.initialize());
-app.use(passport.session());
 
 //RUTAS
 app.use("/", routerViews);
 app.use("/api/products", routerProducts);
 app.use("/api/carts", routerCarts);
 app.use("/auth/users", routerUsers);
+app.use("/api/session", routerSession);
 
 //PUBLIC
 app.use(express.static(__dirname + "/public"));
