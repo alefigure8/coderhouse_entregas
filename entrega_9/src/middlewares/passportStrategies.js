@@ -54,15 +54,15 @@ passport.deserializeUser(async (_id, done) => {
 // **** JWT **** //
 
 passport.use(
-  "jwt",
+  "current",
   new jwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
       // eslint-disable-next-line no-undef
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: process.env.JWT_SECRET
     },
-    async (payload, done) => {
-      done(null, payload);
+    async (payload, done ) => {
+        return done(null, payload);
     }
   )
 );
