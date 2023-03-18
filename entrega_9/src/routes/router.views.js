@@ -1,6 +1,7 @@
 import { Router } from "express";
 import io from "../app.js";
-import { auth, jwtAuth } from "../middlewares/auth.js";
+import { jwtAuth, privateCart } from "../middlewares/auth.js";
+// import passport from "passport";
 
 // ****** PERSISTENCIA DE DATOS ****** //
 
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
 });
 
 //DATOS DESDE SOCKET.IO
-router.get("/realtimeproducts", jwtAuth, async (req, res) => {
+router.get("/realtimeproducts", jwtAuth,  async (req, res) => {
   try {
     const user = res.user;
     if(user.role == "admin"){
@@ -46,7 +47,7 @@ router.get("/realtimeproducts", jwtAuth, async (req, res) => {
 });
 
 //POST DESDE SOCKET.IO
-router.post("/realtimeproducts", async (req, res) => {
+router.post("/realtimeproducts", jwtAuth, async (req, res) => {
   try {
     const { title, description, price, thumbnail, code, stock, category } =
       req.body;
@@ -75,7 +76,7 @@ router.post("/realtimeproducts", async (req, res) => {
 });
 
 // CHAT MENSAJES
-router.get("/chat", auth, async (req, res) => {
+router.get("/chat", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     const messageManeger = new MessageManeger();
@@ -90,7 +91,7 @@ router.get("/chat", auth, async (req, res) => {
 });
 
 // CHAT ENVIAR MENSAJES
-router.post("/chat", async (req, res) => {
+router.post("/chat", jwtAuth, async (req, res) => {
   try {
     const messageManeger = new MessageManeger();
     const { usuario, mensaje } = req.body;
@@ -105,7 +106,7 @@ router.post("/chat", async (req, res) => {
 export default router;
 
 //VISTA LISTADO DE PRODUCTOS DESDE HANDLEBARS PAGINACION
-router.get("/products", auth, async (req, res) => {
+router.get("/products", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     const productManager = new ProductManager();
@@ -117,7 +118,7 @@ router.get("/products", auth, async (req, res) => {
 });
 
 //VISTA PRODUCTO DESDE HANDLEBARS
-router.get("/product/:id", auth, async (req, res) => {
+router.get("/product/:id", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     const id = req.params.id;
@@ -130,7 +131,7 @@ router.get("/product/:id", auth, async (req, res) => {
 });
 
 //CARRITO
-router.get("/carts/:id", auth, async (req, res) => {
+router.get("/carts/:id", jwtAuth, privateCart,async (req, res) => {
   try {
     const user = res.user;
     if (user) {
@@ -153,14 +154,13 @@ router.get("/carts/:id", auth, async (req, res) => {
 });
 
 //CREAR PRODUCTO EN CARRITO
-router.post("/:cid/product/:pid", auth, async (req, res) => {
+router.post("/:cid/product/:pid", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     if (user) {
       const cid = req.params.cid;
       const pid = req.params.pid;
       const { quantity } = req.body;
-      console.log(cid, pid, quantity);
       const cartManager = new CartManager();
       await cartManager.updateCart(cid, pid, quantity);
       res.redirect(`/carts/${cid}`);
@@ -173,7 +173,7 @@ router.post("/:cid/product/:pid", auth, async (req, res) => {
 });
 
 //ACTUALIZAR CANTIDAD EN CARRITO
-router.put(":cid/product/:pid", auth, async (req, res) => {
+router.put(":cid/product/:pid", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     if (user) {
@@ -190,7 +190,7 @@ router.put(":cid/product/:pid", auth, async (req, res) => {
 });
 
 // DELETE PRODUCTO DE UN CARRITO
-router.delete("/:cid/product/:pid", auth, async (req, res) => {
+router.delete("/:cid/product/:pid", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     if (user) {
@@ -206,7 +206,7 @@ router.delete("/:cid/product/:pid", auth, async (req, res) => {
 });
 
 // DELETE CARRITO
-router.delete("/:cid/", auth, async (req, res) => {
+router.delete("/:cid/", jwtAuth, async (req, res) => {
   try {
     const user = res.user;
     if (user) {
@@ -221,7 +221,7 @@ router.delete("/:cid/", auth, async (req, res) => {
 });
 
 //REGISTER
-router.get("/register", auth, (req, res) => {
+router.get("/register", jwtAuth, (req, res) => {
   const user = res.user;
   if (!user) {
     res.render("register", { titulo: "REGISTRO" });
@@ -231,7 +231,7 @@ router.get("/register", auth, (req, res) => {
 });
 
 //LOGIN
-router.get("/login", jwtAuth, (req, res) => {
+router.get("/login", jwtAuth,(req, res) => {
   const user = res.user;
   if (!user) {
     res.render("login", { titulo: "LOGIN" });
