@@ -15,3 +15,14 @@ export const jwtAuth = (req, res, next) => {
 
   next();
 };
+
+// private cart
+export const privateCart = (req, res, next) => {
+  const cartId = req.params.id;
+  const user = res.user;
+  if (user.cartId == cartId) {
+    return next();
+  }
+
+  res.redirect("/errorLogin");
+};
