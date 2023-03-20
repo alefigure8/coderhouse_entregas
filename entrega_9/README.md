@@ -4,33 +4,49 @@
 Agregar modelo de usuario nuevo y modificar session por JWT
 
 <br>
-<br>
+
 <b>Profesor:</b> Farid Sesin</br>
 <b>Tutor:</b> Jerlib Gonzalez</br>
 <b>Alumno:</b> Alejandro Gomez Nieto</br>
 <br>
 
-## BASE URL
+## INDICE
 
-```PowerShell
+- [ENTREGA 9](#ENTREGA-9)
+  - [VIEWS](#views)
+    - [RUTAS VIEWS](#rutas-views)
+    - [QUERYS VIEWS](#querys-views)
+  - [USERS](#USERS)
+    - [RUTAS USERS](#rutas-users)
+  - [PRODUCTOS API](#productos-api)
+    - [RUTAS PRODUCTOS API](#rutas-productos-api)
+  - [CARRITO API](#carrito-api)
+    - [RUTAS CARRITO API](#rutas-carrito-api)
+  - [JSON BODY](#json-body)
+    - [CREAR PRODUCTO](#crear-producto)
+    - [CREAR CARRITO](#crear-carrito)
+    - [AGREGAR PRODUCTOS](#agregar-productos)
+
+## PORT
+### RUTA BASE
+
+```js
 localhost:8080
 ```
+## VIEWS
+### RUTAS VIEWS
 
-## ENDPOINTS
-
-<b>VIEWS</b>
-
-```powershell
+```js
 //Producto
 localhost:8080/
 
-//Producto IO - RUTA PROTEGIDA
+//Producto IO
 localhost:8080/realtimeproducts
 
 //Productos
 localhost:8080/products
 
-//Cart - RUTA PROTEGIDA
+//Cart
 localhost:8080/carts/:id
 
 //Chat
@@ -39,7 +55,7 @@ localhost:8080/chat
 //Login
 localhost:8080/login
 
-//Registro - RUTA PROTEGIDA
+//Registro
 localhost:8080/register
 
 //Logout
@@ -52,60 +68,81 @@ localhost:8080/errorlogin
 localhost:8080/errorregistro
 ```
 
-<b>USERS</b>
-```powershell
+### QUERYS VIEWS
+```js
+// Titulo
+GET /api/products?title=producto
+
+//Precio
+GET /api/products?price=100
+
+//Codigo
+GET /api/products?code=1
+
+//Categoria
+GET /api/products?category=categoria
+
+//Status
+GET /api/products?status=true
+
+//Limite
+GET /api/products?limit=10
+
+//Paginacion
+GET /api/products?page=1
+
+//Ordenar
+GET /api/products?sort='asc'/'desc
+
+```
+
+## USERS
+### RUTAS USERS
+
+```js
 //Login
-GET/auth/users/login
+GET /auth/users/login
 
 //Register
 POST /auth/users/register
 
 //Login y register con github
-GET/auth/users/github
+GET /auth/users/github
 
 //callback github
-GET/auth/users/callbackGithub
+GET /auth/users/callbackGithub
 
 ```
 
-<b>QUERYS</b>
-```powershell
-//Crear producto IO
-GET/api/products
-
-//Querys
-GET/api/products?title=producto
-GET/api/products?price=100
-GET/api/products?code=1
-GET/api/products?category=categoria
-GET/api/products?status=true
-GET/api/products?limit=10
-GET/api/products?opage=1
-GET/api/products?sort='asc'/'desc
-
-```
-
-<b>PRODUCTO API</b>
-```powershell
+## PRODUCTOS API
+### RUTAS PRODUCTOS API
+```js
 //Ver Productos
-GET/api/products
+GET /api/products
 
 //Crear Producto
-//POST /api/products
+POST /api/products
 
 //Obtener Producto
-GET/api/products/:id
+GET /api/products/:id
 
 //Actualizar Producto
-PUT/api/products/:id
+PUT /api/products/:id
 
 //Eliminar Producto
-DELETE/api/products/:id
+DELETE /api/products/:id
+```
+### Respuesta
+  
+```js
+200 Ok
 ```
 
-<b>CARRITO API</b>
 
-```powershell
+## CARRITO API
+### RUTAS CARRITO API
+
+```js
 //Crear carrito
 POST/api/carts/
 
@@ -133,13 +170,20 @@ DELETE/api/carts/:cid
 //Vaciar carrito
 DELETE/api/carts/:cid/product
 ```
+### Respuesta
+  
+```js
+200 OK
+```
 
-<b>PRODUCTO BODY PARA POSTMAN</b>
+## JSON BODY
+#### Crear Producto
 
-```powershell
-//CREAR PRODUCTO
-//POST /api/products
+```js
+POST /api/products
+```	
 
+```json
 {
   "title": "Producto",
   "description": "Producto",
@@ -151,20 +195,32 @@ DELETE/api/carts/:cid/product
   "status": true
 }
 ```
-<b>CARRITO BODY PARA POSTMAN</b>
+## CARRITO DE COMPRAS
+#### Crear Carrito
 
-```powershell
-//AGREGAR PRODUCTO AL CARRITO
-//POST /api/products
 
+```js
+POST /api/products
+```	
+
+```json
 {
   "product": <ID>,
   "quantity": <CANTIDAD>
 }
 ```
-```powershell
-//AGREGAR ARREGLO DE PRODUCTO AL CARRITO
-//POST /api/carts/:cid
+### Respuesta
+  
+```js
+200 OK
+```
+## AGREGAR PRODUCTOS
+#### Agregar producto al carrito
+```js
+POST /api/carts/:cid
+```	
+#### Agregar arreglo de productos al carrito
+```json
   [
     {
       "product":"63e7ea72653668f3ec4cff30",
@@ -176,3 +232,8 @@ DELETE/api/carts/:cid/product
     }
   ]
   ```
+  ### Respuesta
+  
+```js
+200 OK
+```
