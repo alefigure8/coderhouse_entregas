@@ -132,8 +132,7 @@ PUT /api/products/:id
 //Eliminar Producto
 DELETE /api/products/:id
 ```
-### Respuesta
-  
+  ### RESPUESTA
 ```js
 200 Ok
 ```
@@ -144,40 +143,40 @@ DELETE /api/products/:id
 
 ```js
 //Crear carrito
-POST/api/carts/
+POST /api/carts/
 
 //Obtener carrito
-GET/api/carts/:cid
+GET /api/carts/:cid
 
 // Agregar arreglo de productos al carrito
 PUT /api/carts/:cid
 
 //Obtener productos del carrito
-GET/api/carts/:cid/products
+GET /api/carts/:cid/products
 
 //Agregar producto al carrito
-POST/api/carts/:cid/product/:pid
+POST /api/carts/:cid/product/:pid
 
 //Actualizar producto del carrito
-PUT/api/carts/:cid/product/:pid
+PUT /api/carts/:cid/product/:pid
 
 //Eliminar producto del carrito
-DELETE/api/carts/:cid/product/:pid
+DELETE /api/carts/:cid/product/:pid
 
 //Eliminar carrito
-DELETE/api/carts/:cid
+DELETE /api/carts/:cid
 
 //Vaciar carrito
 DELETE/api/carts/:cid/product
 ```
-### Respuesta
+  ### RESPUESTA
   
 ```js
 200 OK
 ```
 
 ## JSON BODY
-#### Crear Producto
+#### CREAR PRODUCTO
 
 ```js
 POST /api/products
@@ -196,8 +195,7 @@ POST /api/products
 }
 ```
 ## CARRITO DE COMPRAS
-#### Crear Carrito
-
+#### CREAR CARRITO
 
 ```js
 POST /api/products
@@ -209,17 +207,16 @@ POST /api/products
   "quantity": <CANTIDAD>
 }
 ```
-### Respuesta
+  ### RESPUESTA
   
 ```js
 200 OK
 ```
 ## AGREGAR PRODUCTOS
-#### Agregar producto al carrito
+#### RUTA PARA AGREGAR PRODUCTOS AL CARRITO
 ```js
 POST /api/carts/:cid
 ```	
-#### Agregar arreglo de productos al carrito
 ```json
   [
     {
@@ -232,7 +229,7 @@ POST /api/carts/:cid
     }
   ]
   ```
-  ### Respuesta
+  ### RESPUESTA
   
 ```js
 200 OK
