@@ -1,0 +1,15 @@
+@id=00000000-0000-0000-0000-000000000000
+
+PUT http://localhost:8080/api/products/{{id}}
+Content-Type: application/json
+
+{
+  "title": "Producto",
+  "description": "Producto",
+  "price": 100,
+  "thumbnail": ["imagen1", "imagen2"],
+  "code": 1,
+  "stock": 10,
+  "category": "categoria",
+  "status": true
+}
