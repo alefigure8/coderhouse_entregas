@@ -1,0 +1,3 @@
+@id=641f5734b0b88db4dc2ae02a
+
+DELETE http://localhost:8080/api/users/{{id}}

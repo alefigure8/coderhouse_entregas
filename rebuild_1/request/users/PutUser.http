@@ -1,0 +1,8 @@
+@id=641f5a8da0035727963157d0
+
+PUT http://localhost:8080/api/users/{{id}}
+Content-Type: application/json
+
+{
+  "password": "654321"
+}
