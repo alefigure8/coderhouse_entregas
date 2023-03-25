@@ -5,6 +5,7 @@ import {config} from "./utils/config.js";
 import './dbConfig.js';
 
 import productsRoute from "./routes/products.route.js";
+import usersRoute from "./routes/users.route.js";
 
 //CONFIGURACIONES
 const app = express();
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //ROUTES
 app.use("/api/products", productsRoute);
+app.use("/api/users", usersRoute);
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
