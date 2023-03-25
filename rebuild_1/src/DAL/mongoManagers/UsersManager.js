@@ -2,25 +2,6 @@ import { usersModels } from "../model/Users.model.js";
 //import CartManager from "./CartManager.js";
 
 class UsersManager {
-  // async getUserByEmailAndPassword(email, password) {
-  //   try {
-  //     const user = await usersModels.findOne({ email, password });
-  //     return user;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
-  // Obtener usuario por mail
-  // async getUserByEmail(email) {
-  //   try {
-  //     const user = await usersModels.findOne({ email }).lean();
-  //     return user;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
   // // Crear usuario
   // async addUser(user) {
   //   try {
@@ -38,6 +19,7 @@ class UsersManager {
   //   }
   // }
 
+
   // POST USER
   async addUser(user) {
     try {
@@ -48,16 +30,7 @@ class UsersManager {
     }
   }
 
-  // async getUserById(id) {
-  //   try {
-  //     const user = await usersModels.findOne({ id }).lean();
-  //     return user;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
-  // GET USER
+  // GET USER BY ID
   async getOneUser(option) {
     try {
       const user = await usersModels.findOne(option).lean();
@@ -68,9 +41,9 @@ class UsersManager {
   }
 
   // UPDATE
-  async updateUser(user){
+  async updateUser(id, user){
     try {
-      const newuser = await usersModels.findByIdAndUpdate(user._id, user, {new: true});
+      const newuser = await usersModels.findByIdAndUpdate(id, user, {new: true}).lean();
       return newuser;
     } catch (error) {
       throw new Error(error);
