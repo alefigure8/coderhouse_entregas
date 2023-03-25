@@ -32,9 +32,9 @@ class ProductManager {
   }
 
   // UPDATE
-  async updateProduct(product) {
+  async updateProduct(id, product) {
     try {
-      const updatedProduct = await productsModel.findByIdAndUpdate(product._id, product, {new: true});
+      const updatedProduct = await productsModel.findByIdAndUpdate(id, product, {new: true});
       return updatedProduct;
     } catch (error) {
       throw new Error(error);

@@ -81,8 +81,7 @@ export async function addProduct(product) {
 // UPDATE
 export async function updateProduct(id, product) {
   try {
-    const parseProduct = { ...product, _id: id };
-    const updatedProduct = await productManager.updateProduct(parseProduct);
+    const updatedProduct = await productManager.updateProduct(id, product);
     return updatedProduct;
   } catch (error) {
     throw new Error(error);

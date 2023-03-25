@@ -26,6 +26,13 @@ export async function getProduct(req, res) {
 
 export async function postProduct(req, res) {
   try {
+    if (
+      Object.values(req.body).includes("") ||
+      Object.values(req.body).includes(undefined)
+    ) {
+      return res.status(500).json({ error: "All fields are required" });
+    }
+
     const product = await addProduct(req.body);
     res.json({ msg: "Product added", product });
   } catch (error) {
@@ -35,6 +42,7 @@ export async function postProduct(req, res) {
 
 export async function putProduct(req, res) {
   try {
+    //Validar datos
     const product = await updateProduct(req.params.id, req.body);
     res.json({ msg: "Product updated", product });
   } catch (error) {
