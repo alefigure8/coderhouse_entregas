@@ -13,15 +13,12 @@ CarManager
 
 
 class CartManager {
-  constructor() {
-    this.carts = [];
-  }
 
   // Obtener todos los carritos (Solo para desarrollo. Borrar!)
   async getCarts() {
     try {
-      this.carts = await cartsModel.find().lean();
-      return this.carts;
+      const carts = await cartsModel.find().lean();
+      return carts;
     } catch (error) {
       throw new Error(error);
     }
@@ -37,16 +34,7 @@ class CartManager {
     }
   }
 
-  // async getCartById(id) {
-  //   try {
-  //     const cart = await cartsModel.find({ _id: id }).lean();
-  //     return cart;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
-
-  // Crear un carrito
+ // Crear un carrito
   async addCart() {
     try {
       const cart = {};
@@ -57,6 +45,34 @@ class CartManager {
       throw new Error(error);
     }
   }
+
+     async updateCart(id, product) {
+    try {
+      const updatedCart = await cartsModel.findByIdAndUpdate(id, product, {new: true});
+      return updatedCart;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  //Eliminar el carrito
+  async deleteCart(id) {
+    try {
+      const cart = await cartsModel.findByIdAndDelete(id);
+      return cart;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+    // async getCartById(id) {
+  //   try {
+  //     const cart = await cartsModel.find({ _id: id }).lean();
+  //     return cart;
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
+
 
   // // Crar o Actualizar la cantidad de un producto en el carrito
   // async updateCart(id, product, quantity) {
@@ -76,14 +92,6 @@ class CartManager {
   // }
 
    // Crar o Actualizar la cantidad de un producto en el carrito
-   async updateCart(id, product) {
-    try {
-      const updatedCart = await cartsModel.findByIdAndUpdate(id, product, {new: true});
-      return updatedCart;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 
   // //Actualizar la cantidad de un producto
   // async updateProduct(id, product, quantity) {
@@ -101,51 +109,42 @@ class CartManager {
   // }
 
   //Agregar arreglo de productos al carrito
-  async insertProductsInCart(id, products)
-  {
-    try {
-      const cart = await cartsModel.findById(id);
-      cart.products = [... cart.products, ...products];
-      const updatedCart = await cartsModel.findByIdAndUpdate(id, cart);
-      return updatedCart;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+  // async insertProductsInCart(id, products)
+  // {
+  //   try {
+  //     const cart = await cartsModel.findById(id);
+  //     cart.products = [... cart.products, ...products];
+  //     const updatedCart = await cartsModel.findByIdAndUpdate(id, cart);
+  //     return updatedCart;
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
 
-  //Eliminar el carrito
-  async deleteCart(id) {
-    try {
-      const cart = await cartsModel.findByIdAndDelete(id);
-      return cart;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 
   //Eliminar un producto del carrito
-  async deleteProduct(id) {
-    try {
-      const cart = await cartsModel.findById(id);
-      cart.products = cart.products.filter((x) => x.id != id);
-      await cartsModel.findByIdAndUpdate(id, cart);
-      return cart;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+  // async deleteProduct(id) {
+  //   try {
+  //     const cart = await cartsModel.findById(id);
+  //     cart.products = cart.products.filter((x) => x.id != id);
+  //     await cartsModel.findByIdAndUpdate(id, cart);
+  //     return cart;
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
 
   // Vaciar el carrito
-  async emptyCart(id) {
-    try {
-      const cart = await cartsModel.findById(id);
-      cart.products = [];
-      await cartsModel.findByIdAndUpdate(id, cart);
-      return cart;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+//   async emptyCart(id) {
+//     try {
+//       const cart = await cartsModel.findById(id);
+//       cart.products = [];
+//       await cartsModel.findByIdAndUpdate(id, cart);
+//       return cart;
+//     } catch (error) {
+//       throw new Error(error);
+//     }
+//   }
 }
 
 export default CartManager;
