@@ -1,0 +1,23 @@
+<div class="productCard">
+    <div class="mainDescription">
+        <div class="leftDescription">
+            {{#each product.thumbnail}}
+                {{#if @first}}
+                    <img src="{{this}}" alt="Imagen del producto" />
+                {{/if}}
+            {{/each}}
+        </div>
+        <div class="rightDescription">
+            <p class="categoryDescription">{{product.category}}</p>
+            <h2>{{product.title}}</h2>
+            <p class="precioDescription">${{product.price}}</p>
+            <p>Stock: {{product.stock}}</p>
+            <p>Descriptión: {{product.description}}</p>
+            <form action="/{{user.cartId}}/product/{{product._id}}" method="POST">
+                <input type="number" name="quantity" id="quantity" min="1" value="1">
+                <button type="submit" class="btn" onclick="">AGREGAR A CARRITO</button>
+            </form>
+        </div>
+    </div>
+</div>
+    
