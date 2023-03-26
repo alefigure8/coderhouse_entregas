@@ -1,0 +1,3 @@
+@cid=642091ba6a11dbd8db48a783
+
+GET http://localhost:8080/api/carts/{{cid}}

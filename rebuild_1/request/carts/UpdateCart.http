@@ -1,0 +1,10 @@
+@cid=642099938926de77605157e3
+@pid=641dc3fd35c84850a3abb7c0
+
+PUT http://localhost:8080/api/carts/{{cid}}
+Content-Type: application/json
+
+{
+    "product":"641dc3fd35c84850a3abb7c0",
+    "quantity": 2
+}

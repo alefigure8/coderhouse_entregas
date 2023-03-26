@@ -1,0 +1,3 @@
+@cid=642099938926de77605157e3
+
+DELETE http://localhost:8080/api/carts/{{cid}}/product
