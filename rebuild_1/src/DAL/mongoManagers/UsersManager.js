@@ -19,7 +19,6 @@ class UsersManager {
   //   }
   // }
 
-
   // POST USER
   async addUser(user) {
     try {
