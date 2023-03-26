@@ -1,8 +1,10 @@
 import express from "express";
-//import './utils/commander.js'
 import {__dirname} from "././utils/path.js";
 import {config} from "./utils/config.js";
 import './dbConfig.js';
+
+import handlebars from "express-handlebars";
+import {helpers} from "./helpers/handlebars.js"
 
 import productsRoute from "./routes/products.route.js";
 import usersRoute from "./routes/users.route.js";
@@ -14,6 +16,14 @@ const app = express();
 //PUBLIC
 app.use(express.static(__dirname + "/public"));
 
+//HANDLEBARS
+app.engine("handlebars", handlebars.engine({
+    helpers
+}));
+app.set("view engine", "handlebars");
+app.set("views", __dirname + "/views");
+
+
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,10 +32,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/products", productsRoute);
 app.use("/api/users", usersRoute);
 app.use('/api/carts', cartsRoute);
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
 
 //INICIAR SERVIDOR
 const serverHTTP = app.listen(config.port, () => {
