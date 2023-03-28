@@ -8,7 +8,7 @@ import {
   postCart,
   putCart,
   putProductInCart,
-} from "../controllers/carts.controller.js";
+} from "../controllers/API/carts.controller.js";
 
 const router = Router();
 
