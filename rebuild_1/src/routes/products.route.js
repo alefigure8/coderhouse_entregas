@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import {getProducts, getProduct, postProduct, putProduct, deleteProductById} from '../controllers/products.controller.js';
+import {getProducts, getProduct, postProduct, putProduct, deleteProductById} from '../controllers/API/products.controller.js';
 const router = Router();
 
 router.get('/', getProducts);
