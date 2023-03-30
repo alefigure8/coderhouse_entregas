@@ -25,8 +25,8 @@ import { githubAuthenticate, githubAuthenticateFailure } from "../middlewares/pa
 const router = Router();
 
 // PRODUCTS
-router.get("/products", getProducts);
-router.get("/product/:id", getProduct);
+router.get("/products", jwtAuth, getProducts);
+router.get("/product/:id", jwtAuth, getProduct);
 
 //CART
 
