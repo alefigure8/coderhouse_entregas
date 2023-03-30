@@ -13,4 +13,5 @@ export const config = {
     cookieSecret: process.env.COOKIE_SECRET,
     githubClientId: process.env.GITHUB_CLIENT_ID,
     githubClientSecret: process.env.GITHUB_CLIENT_SECRET,
+    mailAdmin: process.env.MAIL_ADMIN
 };

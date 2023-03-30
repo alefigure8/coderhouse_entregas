@@ -17,7 +17,7 @@ export const findUserById = async (id) => {
 //get One user by email
 export const findUserByEmail = async (email) => {
   try {
-    const user = await userManager.getOneUser({ _email: email });
+    const user = await userManager.getOneUser({ email: email });
     return user;
   } catch (error) {
     throw new Error(error);
@@ -28,6 +28,7 @@ export const findUserByEmail = async (email) => {
 export const getUserToken = async (user) => {
   try {
     const userExist = await userManager.getOneUser({ email: user.email });
+
     if (!userExist) {
       throw new Error("User or Password incorrect");
     }
@@ -36,15 +37,14 @@ export const getUserToken = async (user) => {
       user.password,
       userExist.password
     );
-
     if (!isValidPass) {
       throw new Error("User or Password incorrect");
     }
 
     if (user.role == "admin") {
-      user.isAdmin = true;
+      userExist.isAdmin = true;
     } else {
-      user.isAdmin = false;
+      userExist.isAdmin = false;
     }
 
     const token = await generateToken(userExist);
@@ -54,6 +54,18 @@ export const getUserToken = async (user) => {
     throw new Error(error);
   }
 };
+
+export const getToken = async (user) => {
+  if (user.role == "admin") {
+    user.isAdmin = true;
+  } else {
+    user.isAdmin = false;
+  }
+
+  const token = await generateToken(user);
+
+  return token;
+}
 
 // Add User
 export const createUser = async (user) => {

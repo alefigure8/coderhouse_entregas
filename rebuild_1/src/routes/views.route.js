@@ -17,7 +17,10 @@ import {
   getLogout,
 } from "../controllers/views/auth.controllers.js";
 
+import {githubAuth} from '../controllers/views/passport.controllers.js'
+
 import { jwtAuth } from "../middlewares/auth.js";
+import { githubAuthenticate, githubAuthenticateFailure } from "../middlewares/passport.js";
 
 const router = Router();
 
@@ -31,6 +34,17 @@ router.get("/product/:id", getProduct);
 router.route("/login").get(getLogin).post(postLogin);
 router.route("/register").get(getRegister).post(postRegister);
 router.get("/logout", getLogout);
+// GITHUB PASSPORT
+router.get(
+  "/github",
+  githubAuthenticate
+);
+
+router.get(
+  "/callbackGithub",
+  githubAuthenticateFailure,
+  githubAuth
+);
 
 // USER
 router.get("/profile", jwtAuth, getProfile);

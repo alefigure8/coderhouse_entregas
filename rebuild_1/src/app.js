@@ -2,11 +2,13 @@ import express from "express";
 import { __dirname } from "././utils/path.js";
 import { config } from "./utils/config.js";
 import cookieParser from "cookie-parser";
-
+import passport from 'passport';
 import "./dbConfig.js";
 
 import handlebars from "express-handlebars";
 import { helpers } from "./helpers/handlebars.js";
+
+import './passport/passport.js';
 
 import productsRoute from "./routes/products.route.js";
 import usersRoute from "./routes/users.route.js";
@@ -28,12 +30,12 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
-console.log(__dirname + "/views");
 
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(config.cookieSecret));
+app.use(passport.initialize());
 
 //ROUTES API
 app.use("/api/products", productsRoute);
