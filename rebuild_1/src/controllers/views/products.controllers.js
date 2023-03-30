@@ -8,8 +8,9 @@ import {
   
   export async function getProducts(req, res) {
     try {
+      const user = res.user;
       const products = await findAllProducts(req.query);
-      res.render("products", { products, titulo: "PRODUCTOS" });
+      res.render("products", { products, user, titulo: "PRODUCTOS" });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -17,8 +18,9 @@ import {
   
   export async function getProduct(req, res) {
     try {
+      const user = res.user;
       const product = await findOneProductById(req.params.id);
-      res.render("product", { product, titulo: product.title });
+      res.render("product", { product, user, titulo: product.title });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
