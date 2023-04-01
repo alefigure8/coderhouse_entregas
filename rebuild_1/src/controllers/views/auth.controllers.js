@@ -1,10 +1,15 @@
 import { createUser, getUserToken } from "../../services/users.services.js";
 
 export const getLogin = async (req, res) => {
-  try {
-    res.render("login");
-  } catch (error) {
-    res.redirect("/errorLogin");
+  const user = res.user;
+  if(!user){
+    try {
+      res.render("login");
+    } catch (error) {
+      res.redirect("/errorLogin");
+    }
+  } else {
+    res.redirect('/profile')
   }
 };
 
@@ -36,10 +41,15 @@ export const getLogout = async (req, res) => {
 };
 
 export const getRegister = async (req, res) => {
-  try {
-    res.render("register");
-  } catch (error) {
-    res.redirect("/errorRegister");
+  const user = res.user;
+  if(!user){
+    try {
+      res.render("register");
+    } catch (error) {
+      res.redirect("/errorRegister");
+    }
+  } else{
+    res.redirect('/profile')
   }
 };
 
