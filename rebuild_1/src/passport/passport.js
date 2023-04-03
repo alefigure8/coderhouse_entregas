@@ -56,7 +56,11 @@ passport.use(
       secretOrKey: config.jwtSecret,
     },
     async (payload, done) => {
-      return done(null, payload);
+      const user = await findUserByEmail(payload._json.email);
+      if (user) {
+        return done(null, payload);
+      }
+      return done(null, false);
     }
   )
 );
