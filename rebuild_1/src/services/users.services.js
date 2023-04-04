@@ -41,14 +41,13 @@ export const getUserToken = async (user) => {
       throw new Error("User or Password incorrect");
     }
 
-    if (user.role == "admin") {
+    if (userExist.role == "Admin") {
       userExist.isAdmin = true;
     } else {
       userExist.isAdmin = false;
     }
 
     const token = await generateToken(userExist);
-
     return token;
   } catch (error) {
     throw new Error(error);
