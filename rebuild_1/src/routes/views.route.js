@@ -17,6 +17,7 @@ import {
   getLogout,
 } from "../controllers/views/auth.controllers.js";
 import { githubAuth,  } from "../controllers/views/passport.controllers.js";
+import {jwtAuth} from "../middlewares/auth.js"
 import {
   githubAuthenticate,
   githubAuthenticateFailure,
@@ -27,16 +28,16 @@ import { getCart } from "../controllers/views/carts.controllers.js";
 const router = Router();
 
 // PRODUCTS
-router.route("/products").get(auth, getProducts).post(jwtAuthenticate, postProduct);
-router.get("/product/:id", jwtAuthenticate, getProduct);
-router.get("/addproduct", jwtAuthenticate, getAddProducts)
+router.route("/products").get(jwtAuth, getProducts).post(jwtAuth, postProduct);
+router.get("/product/:id", jwtAuth, getProduct);
+router.get("/addproduct", jwtAuth, getAddProducts)
 
 //CART
-router.route("/cart/:id").get(jwtAuthenticate, getCart);
+router.route("/cart/:id").get(jwtAuth, getCart);
 
 //AUTH
-router.route("/login").get(jwtAuthenticate, getLogin).post(postLogin);
-router.route("/register").get(jwtAuthenticate, getRegister).post(postRegister);
+router.route("/login").get(jwtAuth, getLogin).post(postLogin);
+router.route("/register").get(jwtAuth, getRegister).post(postRegister);
 router.get("/logout", getLogout);
 
 // GITHUB PASSPORT
@@ -44,7 +45,7 @@ router.get("/github", githubAuthenticate);
 router.get("/callbackGithub", githubAuthenticateFailure, githubAuth);
 
 // USER
-router.get("/profile", jwtAuthenticate, getProfile);
+router.get("/profile", jwtAuth, getProfile);
 
 // ERROR
 router.get("/errorLogin", getErrorLogin);
