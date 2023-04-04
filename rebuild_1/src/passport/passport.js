@@ -20,6 +20,8 @@ passport.deserializeUser(async (id, done) => {
   done(null, usuario);
 });
 
+
+
 // **** GITHUB **** //
 passport.use(
   "github",
@@ -56,11 +58,9 @@ passport.use(
       secretOrKey: config.jwtSecret,
     },
     async (payload, done) => {
-      const user = await findUserByEmail(payload._json.email);
-      if (user) {
-        return done(null, payload);
-      }
-      return done(null, false);
+      if(!payload)
+        return done(null, false);
+      return done(null, payload);
     }
   )
 );
