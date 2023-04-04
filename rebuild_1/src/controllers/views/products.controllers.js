@@ -8,7 +8,7 @@ import {
 
 export async function getProducts(req, res) {
   try {
-    const user = req.user;
+    const user = res.user;
     const products = await findAllProducts(req.query);
     res.render("products", { products, user, titulo: "PRODUCTOS" });
   } catch (error) {
@@ -18,7 +18,7 @@ export async function getProducts(req, res) {
 
 export async function getProduct(req, res) {
   try {
-    const user = req.user;
+    const user = res.user;
     const product = await findOneProductById(req.params.id);
     res.render("product", { product, user, titulo: product.title });
   } catch (error) {
@@ -28,7 +28,7 @@ export async function getProduct(req, res) {
 
 export async function getAddProducts(req, res) {
   try {
-    const user = req.user;
+    const user = res.user;
     if (user && user.role == "Admin") {
       res.render("addProduct", { user, titulo: "PRODUCTOS" });
     } else {
@@ -40,7 +40,7 @@ export async function getAddProducts(req, res) {
 }
 
 export async function postProduct(req, res) {
-  const user = req.user;
+  const user = res.user;
   try {
     if (user && user.role == "Admin") {
       if (

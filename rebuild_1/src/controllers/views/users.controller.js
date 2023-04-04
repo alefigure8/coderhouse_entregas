@@ -1,7 +1,7 @@
 
 export const getProfile = async (req, res) => {
     try {
-      const user = req.user;
+      const user = res.user;
       if (user) {
         res.render("profile", { user, titulo: "PROFILE" });
       } else {

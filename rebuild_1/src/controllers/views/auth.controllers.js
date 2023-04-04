@@ -1,7 +1,7 @@
 import { createUser, getUserToken } from "../../services/users.services.js";
 
 export const getLogin = async (req, res) => {
-  const user = req.user;
+  const user = res.user;
   if(!user){
     try {
       res.render("login");
@@ -41,7 +41,7 @@ export const getLogout = async (req, res) => {
 };
 
 export const getRegister = async (req, res) => {
-  const user = req.user;
+  const user = res.user;
   if(!user){
     try {
       res.render("register");
