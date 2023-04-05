@@ -54,13 +54,16 @@ passport.use(
   "current",
   new jwtStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+      //bearer token
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: config.jwtSecret,
     },
     async (payload, done) => {
-      if(!payload)
+      const user = await findUserById(payload._id);
+      if (!user) {
         return done(null, false);
-      return done(null, payload);
+      }
+      done(null, user);
     }
   )
 );

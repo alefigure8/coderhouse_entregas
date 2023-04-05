@@ -12,6 +12,5 @@ export const githubAuthenticateFailure = passport.authenticate("github", {
 
 export const jwtAuthenticate = passport.authenticate("current", {
   session: false,
-  scope: ["user:email"],
-  failureRedirect: "/products", 
+  scope: ["user:email"]
 });
