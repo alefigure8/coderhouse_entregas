@@ -21,7 +21,6 @@ import {jwtAuth} from "../middlewares/auth.js"
 import {
   githubAuthenticate,
   githubAuthenticateFailure,
-  jwtAuthenticate
 } from "../middlewares/passport.js";
 import { getCart } from "../controllers/views/carts.controllers.js";
 
