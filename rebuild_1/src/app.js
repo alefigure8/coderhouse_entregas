@@ -11,6 +11,7 @@ import { helpers } from "./helpers/handlebars.js";
 import './passport/passport.js';
 
 import productsRoute from "./routes/products.route.js";
+import authRoute from "./routes/auth.router.js";
 import usersRoute from "./routes/users.route.js";
 import cartsRoute from "./routes/carts.route.js";
 import viewsRoute from "./routes/views.route.js";
@@ -41,6 +42,7 @@ app.use(passport.initialize());
 app.use("/api/products", productsRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/carts", cartsRoute);
+app.use("/api/auth", authRoute);
 
 // ROUTES VIEWS
 app.use("/", viewsRoute);
