@@ -14,3 +14,8 @@ export const jwtAuthenticate = passport.authenticate("current", {
   session: false,
   scope: ["user:email"]
 });
+
+export const jwtAuthenticateAdmin = passport.authenticate("admin", {
+  session: false,
+  scope: ["user:email"]
+});
