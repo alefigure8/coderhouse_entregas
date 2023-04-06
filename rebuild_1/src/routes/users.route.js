@@ -11,7 +11,7 @@ import {jwtAuthenticate} from '../middlewares/passport.js'
 const router = Router();
 
 router.get("/:id", jwtAuthenticate, getUser);
-router.post("/", jwtAuthenticate, postUser);
+router.post("/", postUser);
 router.put("/:id", jwtAuthenticate, putUser);
 router.delete("/:id", jwtAuthenticate, deleteUserById);
 
