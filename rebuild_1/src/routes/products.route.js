@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {getProducts, getProduct, postProduct, putProduct, deleteProductById} from '../controllers/API/products.controller.js';
-import {jwtAuthenticate} from '../middlewares/passport.js';
+import {jwtAuthenticateAdmin} from '../middlewares/passport.js';
 const router = Router();
 
 router.get('/', getProducts);
 router.get('/:id', getProduct);
-router.post('/', jwtAuthenticate, postProduct);
-router.put('/:id', jwtAuthenticate, putProduct);
-router.delete('/:id', jwtAuthenticate, deleteProductById);
+router.post('/', jwtAuthenticateAdmin, postProduct);
+router.put('/:id', jwtAuthenticateAdmin, putProduct);
+router.delete('/:id', jwtAuthenticateAdmin, deleteProductById);
 
 export default router;
