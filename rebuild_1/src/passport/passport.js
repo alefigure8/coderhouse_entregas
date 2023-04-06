@@ -6,7 +6,7 @@ import {
   findUserById,
   createUser,
 } from "../services/users.services.js";
-import { cookieExtractor } from "../utils/passport.js";
+//import { cookieExtractor } from "../utils/passport.js";
 import { config } from "../utils/config.js";
 
 //Serialize
@@ -61,6 +61,24 @@ passport.use(
     async (payload, done) => {
       const user = await findUserById(payload._id);
       if (!user) {
+        return done(null, false);
+      }
+      done(null, user);
+    }
+  )
+);
+
+passport.use(
+  "admin",
+  new jwtStrategy(
+    {
+      //bearer token
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: config.jwtSecret,
+    },
+    async (payload, done) => {
+      const user = await findUserById(payload._id);
+      if (!user || user.role !== "admin") {
         return done(null, false);
       }
       done(null, user);
