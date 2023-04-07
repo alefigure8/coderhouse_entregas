@@ -60,14 +60,17 @@ export async function postProduct(req, res) {
 
 export async function putProduct(req, res) {
   try {
-    if (
-      Object.values(req.body).includes("") ||
-      Object.values(req.body).includes(undefined)
-    ) {
-      return res.status(500).redirect("/products");
-    }
+    const user = res.user;
+    if (user && user.role == "Admin") {
+      if (
+        Object.values(req.body).includes("") ||
+        Object.values(req.body).includes(undefined)
+      ) {
+        return res.status(500).redirect("/products");
+      }
 
-    await updateProduct(req.params.id, req.body);
+      await updateProduct(req.params.id, req.body);
+    }
     res.status(200).redirect("/products");
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -76,7 +79,10 @@ export async function putProduct(req, res) {
 
 export async function deleteProductById(req, res) {
   try {
-    await deleteProduct(req.params.id);
+    const user = res.user;
+    if (user && user.role == "Admin") {
+      await deleteProduct(req.params.id);
+    }
     res.status(200).redirect("/products");
   } catch (error) {
     res.status(500).json({ error: error.message });
