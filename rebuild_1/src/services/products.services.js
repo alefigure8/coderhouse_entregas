@@ -37,7 +37,6 @@ export async function findAllProducts(querys) {
       }
     });
 
-
     const products = await productManager.findAll(query, options);
     return products;
   } catch (error) {
@@ -61,18 +60,29 @@ export async function findOneProductById(id) {
 // POST
 export async function addProduct(product) {
   try {
-    const parseProduct = { ...product };
 
-    parseProduct.thumbnail = [];
+    const newProducts = [];
+    let arrayProduct = []
 
-    if (Array.isArray(product.thumbnail))
-      product.thumbnail.forEach((x) => parseProduct.thumbnail.push(x));
-    else parseProduct.thumbnail.push(product.thumbnail);
+    if (!Array.isArray(product)){
+      arrayProduct = Array(product);
+    } else {
+      arrayProduct = product;
+    }
 
-    parseProduct.status = true;
+    arrayProduct.forEach(async (item) => {
+      
+      if (!Array.isArray(item.thumbnail)){
+        item.thumbnail = Array(item.thumbnail);
+      }
+        
+      item.status = true;
+      
+      const newProduct = await productManager.addProduct(item);
+      newProducts.push(newProduct);
+    });
 
-    const newProduct = await productManager.addProduct(parseProduct);
-    return newProduct;
+    return newProducts;
   } catch (error) {
     throw new Error(error);
   }
