@@ -4,7 +4,7 @@ import {
   getProducts,
   getProduct,
   postProduct,
-  getAddProducts
+  getAddProducts,
 } from "../controllers/views/products.controllers.js";
 import { getProfile } from "../controllers/views/users.controller.js";
 import {
@@ -16,23 +16,24 @@ import {
   getErrorRegister,
   getLogout,
 } from "../controllers/views/auth.controllers.js";
-import { githubAuth,  } from "../controllers/views/passport.controllers.js";
-import {jwtAuth} from "../middlewares/auth.js"
+import { githubAuth } from "../controllers/views/passport.controllers.js";
+import { jwtAuth } from "../middlewares/auth.js";
 import {
   githubAuthenticate,
   githubAuthenticateFailure,
 } from "../middlewares/passport.js";
-import { getCart } from "../controllers/views/carts.controllers.js";
+import { getCart, postCart } from "../controllers/views/carts.controllers.js";
 
 const router = Router();
 
 // PRODUCTS
 router.route("/products").get(jwtAuth, getProducts).post(jwtAuth, postProduct);
 router.get("/product/:id", jwtAuth, getProduct);
-router.get("/addproduct", jwtAuth, getAddProducts)
+router.get("/addproduct", jwtAuth, getAddProducts);
 
 //CART
-router.route("/cart/:id").get(jwtAuth, getCart);
+router.route("/cart/:cid").get(jwtAuth, getCart);
+router.route("/:cid/product/:pid").post(jwtAuth, postCart);
 
 //AUTH
 router.route("/login").get(jwtAuth, getLogin).post(postLogin);
