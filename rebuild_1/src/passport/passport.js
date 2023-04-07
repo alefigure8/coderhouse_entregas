@@ -78,7 +78,7 @@ passport.use(
     },
     async (payload, done) => {
       const user = await findUserById(payload._id);
-      if (!user || user.role !== "admin") {
+      if (!user || user.role !== "Admin") {
         return done(null, false);
       }
       done(null, user);
