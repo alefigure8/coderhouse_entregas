@@ -34,16 +34,16 @@
   </div>
   <!-- PAGINACION -->
   <div class="pagination">
-    {{#if productos.prevPage}}
-      <a href="/products/?page={{productos.prevPage}}" class="btnPagination" title="Anterior"> << </a>
+    {{#if products.prevPage}}
+      <a href="/products/?page={{products.prevPage}}" class="btnPagination" title="Anterior"> << </a>
     {{/if}}
 
-    {{#times productos.totalPages}}
+    {{#times products.totalPages}}
       <a href="/products/?page={{@index}}" class="btnPagination" title="Página {{@index}}">{{@index}}</a>
     {{/times}}
 
-    {{#if productos.hasNextPage}}
-      <a href="/products/?page={{productos.nextPage}}" class="btnPagination" title="Siguiente"> >> </a>
+    {{#if products.hasNextPage}}
+      <a href="/products/?page={{products.nextPage}}" class="btnPagination" title="Siguiente"> >> </a>
     {{/if}}
   </div>
 </div>
