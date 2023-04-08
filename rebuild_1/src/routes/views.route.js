@@ -32,7 +32,7 @@ router.get("/product/:id", jwtAuth, getProduct);
 router.get("/addproduct", jwtAuth, getAddProducts);
 
 //CART
-router.route("/cart/:cid").get(jwtAuth, getCart);
+router.route("/carts/:cid").get(jwtAuth, getCart);
 router.route("/:cid/product/:pid").post(jwtAuth, postCart);
 
 //AUTH
