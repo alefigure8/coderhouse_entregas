@@ -64,7 +64,16 @@ export const getToken = async (user) => {
   const token = await generateToken(user);
 
   return token;
-}
+};
+
+
+// CORRECTION
+export const regenerateToken = async (user) => {
+
+  const token = await generateToken(user);
+
+  return token;
+};
 
 // Add User
 export const createUser = async (user) => {
@@ -74,6 +83,8 @@ export const createUser = async (user) => {
     if (userExist) throw new Error("User not found");
 
     user.password = await hashearPassword(user.password);
+    user.cartId = null;
+
     const newUser = await userManager.addUser(user);
     return newUser;
   } catch (error) {
