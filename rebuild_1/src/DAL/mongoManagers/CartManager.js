@@ -15,7 +15,7 @@ class CartManager {
   // Obtener el carrito y sus productos
   async getOneCart(option) {
     try {
-      const cart = await cartsModel.findOne(option).lean();
+      const cart = await cartsModel.find(option).lean();
       return cart;
     } catch (error) {
       throw new Error(error);
