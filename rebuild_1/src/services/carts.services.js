@@ -1,8 +1,6 @@
 import CartManager from "../DAL/mongoManagers/CartManager.js";
 const cartManager = new CartManager();
 
-// Carts
-
 export const findAllCarts = async () => {
   try {
     const carts = await cartManager.getCarts();
@@ -21,9 +19,9 @@ export const findOneCart = async (id) => {
   }
 };
 
-export const addCart = async (obj) => {
+export const addCart = async () => {
   try {
-    const cart = await cartManager.addCart(obj);
+    const cart = await cartManager.addCart();
     return cart;
   } catch (error) {
     throw new Error(error);
@@ -33,8 +31,8 @@ export const addCart = async (obj) => {
 export const updateCart = async (id, obj) => {
   try {
     const cart = await cartManager.getOneCart({_id: id});
-    cart.products.push(obj)
-    const updatedCart = await cartManager.updateCart(id, cart);
+    cart[0].products = [ ...cart[0].products, obj];
+    const updatedCart = await cartManager.updateCart(id, cart[0]);
     return updatedCart;
   } catch (error) {
     throw new Error(error);
