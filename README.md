@@ -38,6 +38,7 @@ npm run start:dev
   - [Desafio 7](https://github.com/alefigure8/coderhouse_entregas/tree/master/entrega_7)
   - [Desafio 8](https://github.com/alefigure8/coderhouse_entregas/tree/master/entrega_8/)
   - [Desafio 9](https://github.com/alefigure8/coderhouse_entregas/tree/master/entrega_9/)
+   - [Desafio 10](https://github.com/alefigure8/coderhouse_entregas/tree/master/rebuild_1/)
 
 - Pre-Entregas
   - [Pre-Entrega 2](https://github.com/alefigure8/coderhouse_entregas/tree/master/pre_entrega_final_2)
