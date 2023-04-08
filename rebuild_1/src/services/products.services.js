@@ -1,7 +1,7 @@
 import ProductManager from "../DAL/mongoManagers/ProductManager.js";
 const productManager = new ProductManager();
 
-// GET ALL
+// GET ALL PAGIANTE
 export async function findAllProducts(querys) {
   try {
     const {

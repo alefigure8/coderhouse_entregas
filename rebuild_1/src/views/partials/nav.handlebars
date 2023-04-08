@@ -6,7 +6,9 @@
   </ul>
   <ul class="nav_ul">
     {{#if user}}
-      <li><a href="/carts/{{user.cartId}}">Carrito</a></li>
+      {{#if user.cartId}}
+         <li><a href="/carts/{{user.cartId}}">Carrito</a></li>
+      {{/if}}
       <li><a href="/profile">{{user.role}}</a></li>
       <li><a href="/logout">Logout</a></li>
     {{else}}

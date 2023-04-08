@@ -11,7 +11,7 @@ class ProductManager {
     }
   }
 
-  //GET ALL
+  //GET ALL PAGINATED
   async findAll(query, options) {
     try {
       const products = await productsModel.paginate(query, options);
@@ -20,6 +20,7 @@ class ProductManager {
       throw new Error(error);
     }
   }
+
 
   //GET ONE
   async findOneProduct(option) {

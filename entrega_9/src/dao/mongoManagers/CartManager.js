@@ -87,7 +87,6 @@ class CartManager {
     try {
       const cart = await cartsModel.findById(id);
       cart.products = [... cart.products, ...products];
-      console.log(cart.products)
       const updatedCart = await cartsModel.findByIdAndUpdate(id, cart);
       return updatedCart;
     } catch (error) {

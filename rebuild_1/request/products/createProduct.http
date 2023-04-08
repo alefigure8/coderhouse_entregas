@@ -1,16 +1,39 @@
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0ODEzNmEzMmFiZjBiZmExNDIwYTIiLCJmaXJzdG5hbWUiOiJBbGVqYW5kcm8iLCJsYXN0bmFtZSI6IkdvbWV6IE5pZXRvIiwiYWdlIjozOSwiZW1haWwiOiJhbGVqYW5kcm9AbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCR2MWdSYjRIU1ZlMWN4NU8uT2R3eGtlYnpZYmZBelRwN3AvNUc4WFBVR0ZOcmcvNlNqbEVhRyIsInJvbGUiOiJBZG1pbiIsIl9fdiI6MCwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjgwNzI0NDE5LCJleHAiOjE2ODA3MjgwMTl9.Fbigvf7jghCeWNd7NfYfUFXl7wsVbtRTDrYIGYbjy6M
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0ODEzNmEzMmFiZjBiZmExNDIwYTIiLCJmaXJzdG5hbWUiOiJBbGVqYW5kcm8iLCJsYXN0bmFtZSI6IkdvbWV6IE5pZXRvIiwiYWdlIjozOSwiZW1haWwiOiJhbGVqYW5kcm9AbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCR2MWdSYjRIU1ZlMWN4NU8uT2R3eGtlYnpZYmZBelRwN3AvNUc4WFBVR0ZOcmcvNlNqbEVhRyIsInJvbGUiOiJBZG1pbiIsIl9fdiI6MCwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjgwOTAyNzMxLCJleHAiOjE2ODA5MDYzMzF9.pXDyFPoySZcM37TPVj77ozioYfAsTDOHrElROLLuoWU
 
 POST http://localhost:8080/api/products/
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Producto 6",
-  "description": "Producto 6",
-  "price": 300,
-  "thumbnail": ["https://picsum.photos/200/300", "https://picsum.photos/200/300"],
-  "code": 6,
-  "stock": 60,
-  "category": "categoria",
-  "status": true
+  "title": "Producto 12",
+    "description": "Producto 12",
+    "price": 300,
+    "thumbnail": "https://picsum.photos/200/300",
+    "code": 12,
+    "stock": 120,
+    "category": "categoria",
+    "status": true
 }
+
+# [
+#   {
+#     "title": "Producto 13",
+#     "description": "Producto 13",
+#     "price": 300,
+#     "thumbnail": "https://picsum.photos/200/300",
+#     "code": 13,
+#     "stock": 100,
+#     "category": "categoria",
+#     "status": true
+#   },
+#   {
+#     "title": "Producto 14",
+#     "description": "Producto 14",
+#     "price": 300,
+#     "thumbnail": ["https://picsum.photos/200/300", "https://picsum.photos/200/300"],
+#     "code": 14,
+#     "stock": 100,
+#     "category": "categoria",
+#     "status": true
+#   }
+# ]
