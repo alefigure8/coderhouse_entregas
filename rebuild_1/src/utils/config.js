@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import {options} from './commander.js';
 
 dotenv.config({
-    path: options.mode === 'stage' ? '.env.stage' : '.env.development'
+    path: options.mode === 'stage' ? '.env' : '.env.development'
 });
 
 export const config = {
