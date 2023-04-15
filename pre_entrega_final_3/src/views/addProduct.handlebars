@@ -1,0 +1,20 @@
+<div class="form bg-gray border-10">
+    {{#if user.isAdmin}}
+        <h2 class="center">AGREGAR PRODUCTOS</h2>
+        <iframe name="formIO" style="display:none;"></iframe>
+        <form action="/products" id="form" class="formContent" method="post" target="formIO">
+            <div class="formBox">
+                <input type="text" class="formText" name="code" placeholder="Code" required>
+                <input type="text" class="formText" name="title" placeholder="Title" required>
+                <input type="text" class="formText" name="description" placeholder="Description" required>
+                <input type="text" class="formText" name="price" placeholder="Price" required>
+                <input type="text" class="formText" name="thumbnail" placeholder="Thumbnail" required>
+                <input type="text" class="formText" name="stock" placeholder="Stock" required>
+                <input type="text" class="formText" name="category" placeholder="Category" required>
+            </div>
+            <button type="submit" class="btn" id="formBtn">Enviar</button>
+        </form>
+    {{else}}
+        <h2>No tienes permisos para agregar productos</h2>
+    {{/if}}
+</div>
