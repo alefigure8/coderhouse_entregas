@@ -1,4 +1,4 @@
-import CartManager from "../DAOs/mongoManagers/CartManager.js";
+import CartManager from "../DAOs/cartsDAOs/cartsMongo.js";
 const cartManager = new CartManager();
 
 export const findAllCarts = async () => {

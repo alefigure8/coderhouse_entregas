@@ -1,4 +1,4 @@
-import UsersManager from "../DAOs/mongoManagers/UsersManager.js";
+import UsersManager from "../DAOs/usersDAOs/usersMongo.js";
 import { comparePassword, hashearPassword } from "../utils/bcrypt.js";
 import { generateToken } from "../utils/jsonWebToken.js";
 
