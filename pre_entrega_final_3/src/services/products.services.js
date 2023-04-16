@@ -1,5 +1,4 @@
-import ProductManager from "../persistencia/DAOs/productsDAOs/productsMongo.js";
-const productManager = new ProductManager();
+import { productsDAOs } from "../persistencia/factory.js";
 
 // GET ALL PAGIANTE
 export async function findAllProducts(querys) {
@@ -37,7 +36,7 @@ export async function findAllProducts(querys) {
       }
     });
 
-    const products = await productManager.findAll(query, options);
+    const products = await productsDAOs.findAll(query, options);
     return products;
   } catch (error) {
     throw new Error(error);
@@ -47,7 +46,7 @@ export async function findAllProducts(querys) {
 // GET ONE
 export async function findOneProductById(id) {
   try {
-    const product = await productManager.findOneProduct({ _id: id });
+    const product = await productsDAOs.findOneProduct({ _id: id });
 
     if (!product) throw new Error("Product not found");
 
@@ -78,7 +77,7 @@ export async function addProduct(product) {
         
       item.status = true;
       
-      const newProduct = await productManager.addProduct(item);
+      const newProduct = await productsDAOs.addProduct(item);
       newProducts.push(newProduct);
     });
 
@@ -91,7 +90,7 @@ export async function addProduct(product) {
 // UPDATE
 export async function updateProduct(id, product) {
   try {
-    const updatedProduct = await productManager.updateProduct(id, product);
+    const updatedProduct = await productsDAOs.updateProduct(id, product);
     return updatedProduct;
   } catch (error) {
     throw new Error(error);
@@ -101,7 +100,7 @@ export async function updateProduct(id, product) {
 // DELETE
 export async function deleteProduct(id) {
   try {
-    const deletedProduct = await productManager.delete(id);
+    const deletedProduct = await productsDAOs.delete(id);
     return deletedProduct;
   } catch (error) {
     throw new Error(error);

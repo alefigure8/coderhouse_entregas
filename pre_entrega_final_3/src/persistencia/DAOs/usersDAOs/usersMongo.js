@@ -1,23 +1,6 @@
 import { usersModels } from "../../mongoDB/model/users.model.js";
-//import CartManager from "./CartManager.js";
 
 class UsersManager {
-  // // Crear usuario
-  // async addUser(user) {
-  //   try {
-  //     //Create cart
-  //     const cartManager = new CartManager();
-  //     const newCart = await cartManager.addCart();
-  //     const userWithCart = { ...user, cartId: newCart._id };
-
-  //     //Create user
-  //     const newUser = usersModels.create(userWithCart);
-
-  //     return newUser;
-  //   } catch (error) {
-  //     throw new Error(error);
-  //   }
-  // }
 
   // POST USER
   async addUser(user) {

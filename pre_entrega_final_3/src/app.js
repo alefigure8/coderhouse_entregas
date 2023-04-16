@@ -3,7 +3,6 @@ import { __dirname } from "././utils/path.js";
 import { config } from "./utils/config.js";
 import cookieParser from "cookie-parser";
 import passport from 'passport';
-import "./persistencia/mongoDB/dbConfig.js";
 
 import handlebars from "express-handlebars";
 import { helpers } from "./helpers/handlebars.js";
