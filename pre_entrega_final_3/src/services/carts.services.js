@@ -1,4 +1,4 @@
-import CartManager from "../DAOs/cartsDAOs/cartsMongo.js";
+import CartManager from "../persistencia/DAOs/cartsDAOs/cartsMongo.js";
 const cartManager = new CartManager();
 
 export const findAllCarts = async () => {

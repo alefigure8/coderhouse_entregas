@@ -1,4 +1,4 @@
-import { cartsModel } from "../mongoDB/model/carts.model.js";
+import { cartsModel } from "../../mongoDB/model/carts.model.js";
 
 class CartManager {
 

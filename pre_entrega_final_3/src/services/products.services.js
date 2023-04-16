@@ -1,4 +1,4 @@
-import ProductManager from "../DAOs/productsDAOs/productsMongo.js";
+import ProductManager from "../persistencia/DAOs/productsDAOs/productsMongo.js";
 const productManager = new ProductManager();
 
 // GET ALL PAGIANTE
