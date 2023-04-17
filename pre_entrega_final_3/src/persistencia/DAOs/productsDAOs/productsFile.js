@@ -1,82 +1,46 @@
 import fs from "fs";
-import { __dirname } from "../../utils.js";
+import { __dirname } from "../../../utils/path.js";
 
 class ProductManager {
   constructor() {
-    this.products = [];
-    this.path = __dirname + "/productos.json";
+    this.products;
+    this.path = __dirname + "/persistencia/files/products.json";
     this.id = 1;
   }
 
   //Generate ID
   #generateId() {
-    return this.products.length != 0
-      ? this.products[this.products.length - 1].id + 1
+    return this.products.docs.length != 0
+      ? this.products.docs[this.products.docs.length - 1].id + 1
       : this.id;
   }
 
   //Add new
-  async addProduct(
-    title,
-    description,
-    price,
-    thumbnail,
-    code,
-    stock,
-    category
-  ) {
+  async addProduct(product) {
     try {
-      this.products = await this.getProducts();
-      const newProduct = {};
-
-      if (
-        !this.products.some((x) => x.code === code) &&
-        ![title, description, price, code, stock, category].some(
-          (y) => y === "" || y === undefined
-        )
-      ) {
-        newProduct.id = this.#generateId();
-        newProduct.code = code;
-        newProduct.title = title;
-        newProduct.description = description;
-        newProduct.price = price;
-        newProduct.thumbnail = [];
-        
-        if(Array.isArray(thumbnail))
-          thumbnail.forEach((x) => newProduct.thumbnail.push(x));
-        else
-        newProduct.thumbnail.push(thumbnail);
-
-        newProduct.stock = stock;
-        newProduct.category = category;
-        newProduct.status = true;
-
-        this.products.push(newProduct);
-
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(this.products, null, 2),
-          "utf-8"
-        );
-
-        return newProduct;
-      }
-
-      return false;
+      this.products = await this.findAll();
+      product.id = this.#generateId();
+      this.products.docs.push(product);
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(this.products, null, 2),
+        "utf-8"
+      );
+      return product;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  //Get all
-  async getProducts() {
+  // GET ALL PRODUCTS
+  async findAll() {
     try {
       if (fs.existsSync(this.path)) {
         const infoProductos = await fs.promises.readFile(this.path, "utf-8");
         this.products = await JSON.parse(infoProductos);
         return this.products;
       } else {
-        return [];
+        return {docs: []};
       }
     } catch (error) {
       throw new Error(error);
@@ -84,11 +48,11 @@ class ProductManager {
   }
 
   //Get by ID
-  async getProductById(id) {
+  async findOneProduct(id) {
     try {
-      this.products = await this.getProducts();
-      if (this.products.some((x) => x.id == id)) {
-        return this.products.find((x) => x.id == id);
+      this.products = await this.findAll();
+      if (this.products.docs.some((x) => x.id == id)) {
+        return this.products.docs.find((x) => x.id == id);
       } else {
         return "Not Found";
       }
@@ -98,36 +62,26 @@ class ProductManager {
   }
 
   //Update
-  async updateProduct(
-    id,
-    title,
-    description,
-    price,
-    thumbnail,
-    code,
-    stock,
-    category,
-    status
-  ) {
+  async updateProduct(id, product) {
     try {
-      this.products = await this.getProducts();
-      const updatedUser = await this.getProductById(id);
+      this.products = await this.findAll();
+      const updatedUser = await this.findOneProduct(id);
 
       if (updatedUser != "Not Found") {
         updatedUser.id;
-        updatedUser.code = code != undefined ? code : updatedUser.code;
-        updatedUser.title = title != undefined ? title : updatedUser.title;
+        updatedUser.code = product.code != undefined ? product.code : updatedUser.code;
+        updatedUser.title = product.title != undefined ? product.title : updatedUser.title;
         updatedUser.description =
-          description != undefined ? description : updatedUser.description;
-        updatedUser.price = price != undefined ? price : updatedUser.price;
+          product.description != undefined ? product.description : updatedUser.description;
+        updatedUser.price = product.price != undefined ? product.price : updatedUser.price;
         updatedUser.thumbnail =
-          thumbnail != undefined ? thumbnail : updatedUser.thumbnail;
-        updatedUser.stock = stock != undefined ? stock : updatedUser.stock;
+          product.thumbnail != undefined ? product.thumbnail : updatedUser.thumbnail;
+        updatedUser.stock = product.stock != undefined ? product.stock : updatedUser.stock;
         updatedUser.category =
-          category != undefined ? category : updatedUser.category;
-        updatedUser.status = status != undefined ? status : updatedUser.status;
+          product.category != undefined ? product.category : updatedUser.category;
+        updatedUser.status = product.status != undefined ? product.status : updatedUser.status;
 
-        this.products.map((x) => (x.code === code ? updatedUser : x));
+        this.products.docs.map((x) => (x.code === product.code ? updatedUser : x));
 
         await fs.promises.writeFile(
           this.path,
@@ -138,20 +92,20 @@ class ProductManager {
         return updatedUser;
       }
 
-      return false;
+      return "Not Found";
     } catch (error) {
       throw new Error(error);
     }
   }
 
   //Delete
-  async deleteProduct(id) {
+  async delete(id) {
     try {
-      this.products = await this.getProducts();
-      const deleteUser = await this.getProductById(id);
+      this.products = await this.findAll();
+      const deleteUser = await this.findOneProduct(id);
 
       if (deleteUser != "Not Found") {
-        const listaModificada = this.products.filter((x) => x.id !== id);
+        const listaModificada = this.products.docs.filter((x) => x.id !== id);
 
         await fs.promises.writeFile(
           this.path,
