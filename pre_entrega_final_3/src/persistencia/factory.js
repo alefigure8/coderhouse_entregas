@@ -7,12 +7,13 @@ import ProductsMongo from "../persistencia/DAOs/productsDAOs/productsMongo.js";
 import UsersMongo from "../persistencia/DAOs/usersDAOs/usersMongo.js";
 
 // FILES MANAGERS
+import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
 
 export let usersDAOs;
 export let productsDAOs;
 export let cartsDAOs;
 
-switch (config.persistemce) {
+switch (config.persistence) {
   case "Mongoose":
     {
       // Iniciamos managers
@@ -24,4 +25,12 @@ switch (config.persistemce) {
       mongoDB();
     }
     break;
+  case "File":
+  {
+    cartsDAOs = new CartMongo();
+    productsDAOs = new ProductFile();
+    usersDAOs = new UsersMongo();
+    mongoDB();
+
+  }
 }
