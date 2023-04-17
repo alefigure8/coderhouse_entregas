@@ -1,5 +1,7 @@
 import fs from "fs";
 import { __dirname } from "../../../utils/path.js";
+import ProductDB from '../../DTOs/productsDB.dto.js'
+import ProductsResponse from '../../DTOs/productsResponse.dto.js'
 
 class ProductManager {
   constructor() {
@@ -18,15 +20,16 @@ class ProductManager {
   //Add new
   async addProduct(product) {
     try {
+      const productDB = new ProductDB(product);
       this.products = await this.findAll();
-      product.id = this.#generateId();
-      this.products.docs.push(product);
+      productDB.id = this.#generateId();
+      this.products.docs.push(productDB);
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(this.products, null, 2),
         "utf-8"
       );
-      return product;
+      return productDB;
     } catch (error) {
       throw new Error(error);
     }
@@ -38,7 +41,9 @@ class ProductManager {
       if (fs.existsSync(this.path)) {
         const infoProductos = await fs.promises.readFile(this.path, "utf-8");
         this.products = await JSON.parse(infoProductos);
-        return this.products;
+        const response = {docs: []}
+        this.products.docs.forEach((x) => response.docs.push(new ProductsResponse(x)));
+        return response;
       } else {
         return {docs: []};
       }
@@ -51,8 +56,9 @@ class ProductManager {
   async findOneProduct(id) {
     try {
       this.products = await this.findAll();
-      if (this.products.docs.some((x) => x.id == id)) {
-        return this.products.docs.find((x) => x.id == id);
+      if (this.products.docs.some((x) => x._id == id._id)) {
+        console.log(this.products.docs.find((x) => x._id == id._id))
+        return this.products.docs.find((x) => x._id == id._id);
       } else {
         return "Not Found";
       }
