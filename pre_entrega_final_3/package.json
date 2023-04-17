@@ -5,8 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start:dev": "nodemon ./src/app.js --mode development",
-    "start": "node ./src/app.js --mode stage"
+    "dev:mongo": "nodemon src/app.js --mode development --persistence Mongoose",
+    "dev:file": "nodemon src/app.js --mode development --persistence File",
+    "start": "node src/app.js --mode stage"
   },
   "keywords": [],
   "author": "",
