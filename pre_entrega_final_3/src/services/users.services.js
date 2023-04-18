@@ -1,6 +1,7 @@
 import { comparePassword, hashearPassword } from "../utils/bcrypt.js";
 import { generateToken } from "../utils/jsonWebToken.js";
 import { usersDAOs } from "../persistencia/factory.js";
+//import USerDBDTO from "../persistencia/DTOs/usersDB.js";
 
 // Get One User by id
 export const findUserById = async (id) => {
@@ -82,6 +83,7 @@ export const createUser = async (user) => {
 
     user.password = await hashearPassword(user.password);
     user.cartId = null;
+    user.role = "User";
 
     const newUser = await usersDAOs.addUser(user);
     return newUser;

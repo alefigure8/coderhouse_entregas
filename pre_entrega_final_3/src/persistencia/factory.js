@@ -8,6 +8,7 @@ import UsersMongo from "../persistencia/DAOs/usersDAOs/usersMongo.js";
 
 // FILES MANAGERS
 import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
+import UserFile from "../persistencia/DAOs/usersDAOs/userFile.js";
 
 export let usersDAOs;
 export let productsDAOs;
@@ -27,10 +28,8 @@ switch (config.persistence) {
     break;
   case "File":
   {
-    cartsDAOs = new CartMongo();
     productsDAOs = new ProductFile();
-    usersDAOs = new UsersMongo();
-    mongoDB();
-
+    usersDAOs = new UserFile();
+    //TODO cartsDAOs = new CartFile();
   }
 }
