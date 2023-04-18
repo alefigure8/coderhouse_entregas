@@ -23,7 +23,7 @@ class ProductManager {
       const productDB = new ProductDB(product);
       this.products = await this.findAll();
       productDB.id = this.#generateId();
-      this.products.docs.push(productDB);
+      this.products.docs.push(new ProductsResponse(productDB));
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(this.products, null, 2),
@@ -42,7 +42,9 @@ class ProductManager {
         const infoProductos = await fs.promises.readFile(this.path, "utf-8");
         this.products = await JSON.parse(infoProductos);
         const response = {docs: []}
-        this.products.docs.forEach((x) => response.docs.push(new ProductsResponse(x)));
+
+        this.products.docs.forEach((product) => response.docs.push(new ProductsResponse(product)));
+
         return response;
       } else {
         return {docs: []};
@@ -56,9 +58,8 @@ class ProductManager {
   async findOneProduct(id) {
     try {
       this.products = await this.findAll();
-      if (this.products.docs.some((x) => x._id == id._id)) {
-        console.log(this.products.docs.find((x) => x._id == id._id))
-        return this.products.docs.find((x) => x._id == id._id);
+      if (this.products.docs.some((product) => product.id == id)) {
+        return new ProductsResponse(this.products.docs.find((product) => product.id == id));
       } else {
         return "Not Found";
       }
@@ -95,7 +96,7 @@ class ProductManager {
           "utf-8"
         );
 
-        return updatedUser;
+        return new ProductsResponse(updatedUser);
       }
 
       return "Not Found";
@@ -119,7 +120,7 @@ class ProductManager {
           "utf-8"
         );
 
-        return deleteUser;
+        return new ProductsResponse(deleteUser);
       }
 
       return false;

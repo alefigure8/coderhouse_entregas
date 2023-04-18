@@ -1,11 +1,14 @@
 import { productsModel } from "../../mongoDB/model/products.model.js";
+import ProductsResponse from "../../DTOs/productsResponse.dto.js";
+import ProductDB from "../../DTOs/productsDB.dto.js";
 
 class ProductManager {
   //CREATE
   async addProduct(product) {
     try {
-      const newProduct = productsModel.create(product);
-      return newProduct;
+      const productDB = new ProductDB(product);
+      const newProduct = productsModel.create(productDB);
+      return new ProductDB(newProduct);
     } catch (error) {
       throw new Error(error);
     }
@@ -15,6 +18,9 @@ class ProductManager {
   async findAll(query, options) {
     try {
       const products = await productsModel.paginate(query, options);
+
+      products.docs.forEach((product) => product = new ProductsResponse(product));
+
       return products;
     } catch (error) {
       throw new Error(error);
@@ -23,10 +29,12 @@ class ProductManager {
 
 
   //GET ONE
-  async findOneProduct(option) {
+  async findOneProduct(id) {
     try {
-      const product = await productsModel.findOne(option).lean();
+      let product = await productsModel.findOne({ _id: id }).lean();
+      product = new ProductsResponse(product);
       return product;
+      //return product;
     } catch (error) {
       throw new Error(error);
     }
@@ -35,7 +43,8 @@ class ProductManager {
   // UPDATE
   async updateProduct(id, product) {
     try {
-      const updatedProduct = await productsModel.findByIdAndUpdate(id, product, {new: true});
+      const productDB = new ProductDB(product);
+      const updatedProduct = await productsModel.findByIdAndUpdate(id, productDB, {new: true});
       return updatedProduct;
     } catch (error) {
       throw new Error(error);
