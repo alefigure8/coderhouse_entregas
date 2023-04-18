@@ -1,7 +1,7 @@
 import fs from "fs";
 import { __dirname } from "../../../utils/path.js";
-import ProductDB from '../../DTOs/productsDB.dto.js'
-import ProductsResponse from '../../DTOs/productsResponse.dto.js'
+import ProductDB from "../../DTOs/productsDB.dto.js";
+import ProductsResponse from "../../DTOs/productsResponse.dto.js";
 
 class ProductManager {
   constructor() {
@@ -41,13 +41,15 @@ class ProductManager {
       if (fs.existsSync(this.path)) {
         const infoProductos = await fs.promises.readFile(this.path, "utf-8");
         this.products = await JSON.parse(infoProductos);
-        const response = {docs: []}
+        const response = { docs: [] };
 
-        this.products.docs.forEach((product) => response.docs.push(new ProductsResponse(product)));
+        this.products.docs.forEach((product) =>
+          response.docs.push(new ProductsResponse(product))
+        );
 
         return response;
       } else {
-        return {docs: []};
+        return { docs: [] };
       }
     } catch (error) {
       throw new Error(error);
@@ -59,7 +61,9 @@ class ProductManager {
     try {
       this.products = await this.findAll();
       if (this.products.docs.some((product) => product.id == id)) {
-        return new ProductsResponse(this.products.docs.find((product) => product.id == id));
+        return new ProductsResponse(
+          this.products.docs.find((product) => product.id == id)
+        );
       } else {
         return "Not Found";
       }
@@ -72,23 +76,14 @@ class ProductManager {
   async updateProduct(id, product) {
     try {
       this.products = await this.findAll();
-      const updatedUser = await this.findOneProduct(id);
+      let isProduct = await this.findOneProduct(id);
 
-      if (updatedUser != "Not Found") {
-        updatedUser.id;
-        updatedUser.code = product.code != undefined ? product.code : updatedUser.code;
-        updatedUser.title = product.title != undefined ? product.title : updatedUser.title;
-        updatedUser.description =
-          product.description != undefined ? product.description : updatedUser.description;
-        updatedUser.price = product.price != undefined ? product.price : updatedUser.price;
-        updatedUser.thumbnail =
-          product.thumbnail != undefined ? product.thumbnail : updatedUser.thumbnail;
-        updatedUser.stock = product.stock != undefined ? product.stock : updatedUser.stock;
-        updatedUser.category =
-          product.category != undefined ? product.category : updatedUser.category;
-        updatedUser.status = product.status != undefined ? product.status : updatedUser.status;
-
-        this.products.docs.map((x) => (x.code === product.code ? updatedUser : x));
+      
+      if (isProduct != "Not Found") {
+        isProduct = {...isProduct, ...product};
+        this.products.docs.map((prod) =>
+          prod.code === product.code ? isProduct : prod
+        );
 
         await fs.promises.writeFile(
           this.path,
@@ -96,7 +91,7 @@ class ProductManager {
           "utf-8"
         );
 
-        return new ProductsResponse(updatedUser);
+        return new ProductsResponse(isProduct);
       }
 
       return "Not Found";
@@ -112,7 +107,7 @@ class ProductManager {
       const deleteUser = await this.findOneProduct(id);
 
       if (deleteUser != "Not Found") {
-        const listaModificada = this.products.docs.filter((x) => x.id !== id);
+        const listaModificada = this.products.docs.filter((product) => product.id !== id);
 
         await fs.promises.writeFile(
           this.path,
@@ -123,7 +118,7 @@ class ProductManager {
         return new ProductsResponse(deleteUser);
       }
 
-      return false;
+      return "Not Found";
     } catch (error) {
       throw new Error(error);
     }
