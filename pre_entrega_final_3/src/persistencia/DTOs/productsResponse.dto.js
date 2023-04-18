@@ -1,6 +1,6 @@
 export default class ProductsResponseDTO {
   constructor(product) {
-    this._id = product.id;
+    this.id = product?.id || product?._id;
     this.code = product.code;
     this.title = product.title;
     this.description = product.description;
