@@ -15,12 +15,12 @@
             <p>Descriptión: {{product.description}}</p>
             {{#if user}}
                 {{#if user.cartId}}
-                   <form action="/{{user.cartId}}/product/{{product._id}}" method="POST">
+                   <form action="/{{user.cartId}}/product/{{product.id}}" method="POST">
                     <input type="number" name="quantity" id="quantity" min="1" value="1">
                     <button type="submit" class="btn">AGREGAR A CARRITO</button>
                 </form>
                 {{else}}
-                   <form action="/0/product/{{product._id}}" method="POST">
+                   <form action="/0/product/{{product.id}}" method="POST">
                     <input type="number" name="quantity" id="quantity" min="1" value="1">
                     <button type="submit" class="btn">AGREGAR A CARRITO</button>
                 </form>
