@@ -1,7 +1,8 @@
 import { comparePassword, hashearPassword } from "../utils/bcrypt.js";
 import { generateToken } from "../utils/jsonWebToken.js";
 import { usersDAOs } from "../persistencia/factory.js";
-//import USerDBDTO from "../persistencia/DTOs/usersDB.js";
+import UserDBDTO from "../persistencia/DTOs/usersDB.dto.js";
+import UserResponseDTO from "../persistencia/DTOs/usersResponse.dto.js";
 
 // Get One User by id
 export const findUserById = async (id) => {
@@ -17,7 +18,8 @@ export const findUserById = async (id) => {
 export const findUserByEmail = async (email) => {
   try {
     const user = await usersDAOs.getOneUser({ email: email });
-    return user;
+
+    return new UserResponseDTO(user);
   } catch (error) {
     throw new Error(error);
   }
@@ -26,27 +28,26 @@ export const findUserByEmail = async (email) => {
 // Login
 export const getUserToken = async (user) => {
   try {
-    const userExist = await usersDAOs.getOneUser({ email: user.email });
+    const userDTO = new UserDBDTO(user);
 
+    const userExist = await usersDAOs.getOneUser({ email: userDTO.email });
     if (!userExist) {
       throw new Error("User or Password incorrect");
     }
-
     const isValidPass = await comparePassword(
-      user.password,
+      userDTO.password,
       userExist.password
     );
+
     if (!isValidPass) {
       throw new Error("User or Password incorrect");
     }
 
     if (userExist.role == "Admin") {
       userExist.isAdmin = true;
-    } else {
-      userExist.isAdmin = false;
     }
-
-    const token = await generateToken(userExist);
+    const userResponse = new UserResponseDTO(userExist);
+    const token = await generateToken({ ...userResponse });
     return token;
   } catch (error) {
     throw new Error(error);
@@ -54,22 +55,28 @@ export const getUserToken = async (user) => {
 };
 
 export const getToken = async (user) => {
-  if (user.role == "admin") {
-    user.isAdmin = true;
-  } else {
-    user.isAdmin = false;
+  const userDTO = new UserDBDTO(user);
+
+  const userExist = await usersDAOs.getOneUser({ email: userDTO.email });
+
+  if (userExist.role == "Admin") {
+    userExist.isAdmin = true;
   }
 
-  const token = await generateToken(user);
+  const userResponse = new UserResponseDTO(userExist);
+  const token = await generateToken(new UserResponseDTO({ ...userResponse }));
 
   return token;
 };
 
-
 // CORRECTION
 export const regenerateToken = async (user) => {
+  const userDTO = new UserDBDTO(user);
 
-  const token = await generateToken(user);
+  const userExist = await usersDAOs.getOneUser({ email: userDTO.email });
+
+  const userResponse = new UserResponseDTO(userExist);
+  const token = await generateToken({ ...userResponse });
 
   return token;
 };
@@ -77,16 +84,17 @@ export const regenerateToken = async (user) => {
 // Add User
 export const createUser = async (user) => {
   try {
-    const userExist = await usersDAOs.getOneUser({ _id: user.id });
+    const userDTO = new UserDBDTO(user);
+
+    const userExist = await usersDAOs.getOneUser({ _id: userDTO.id });
 
     if (userExist) throw new Error("User not found");
 
-    user.password = await hashearPassword(user.password);
-    user.cartId = null;
-    user.role = "User";
+    userDTO.password = await hashearPassword(userDTO.password);
 
-    const newUser = await usersDAOs.addUser(user);
-    return newUser;
+    const newUser = await usersDAOs.addUser(userDTO);
+
+    return new UserResponseDTO(newUser);
   } catch (error) {
     throw new Error(error);
   }
