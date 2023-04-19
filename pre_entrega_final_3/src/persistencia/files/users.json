@@ -1,0 +1,12 @@
+[
+  {
+    "firstname": "Alejandro",
+    "lastname": "Gomez",
+    "email": "alejandro@mail.com",
+    "age": "39",
+    "password": "$2b$10$kHbbWqZVZe13cA5UdaSJ9OpYUScEKfwhVUz69WsdtUwz3lgL.IRD.",
+    "cartId": null,
+    "role": "User",
+    "id": 1
+  }
+]
