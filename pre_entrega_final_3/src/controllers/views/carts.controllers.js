@@ -6,7 +6,7 @@ import {
 import {
   updateUser,
   findUserById,
-  regenerateToken,
+  getToken,
 } from "../../services/users.services.js";
 
 export const getCart = async (req, res) => {
@@ -14,8 +14,8 @@ export const getCart = async (req, res) => {
   const cid = req.params.id;
 
   if (user) {
-    const userDB = await findUserById(user._id);
-    const cart = await findOneCart(userDB.cartId._id);
+    const userDB = await findUserById(user.id);
+    const cart = await findOneCart(userDB.cartId);
 
     if (cart[0].products.length > 0) {
       //Agregar referencia al carrito en cada producto
@@ -35,33 +35,34 @@ export const getCart = async (req, res) => {
 
 export const postCart = async (req, res) => {
   const user = res.user;
-  let userDB = await findUserById(user._id);
+  let userDB = await findUserById(user.id);
+
   const pid = req.params.pid;
   const quantity = req.body.quantity;
   let cid;
 
   if (user) {
     // si no hay carrito en user
-    if (!userDB.cartId) {
+    if (!userDB?.cartId) {
       // crear carrito
       const cart = await addCart();
-      cid = cart._id;
+      cid = cart.id;
 
       // guardar carrit en user
       userDB.cartId = cid;
 
       // guardar user en db
-      userDB = await updateUser(userDB._id, userDB);
+      userDB = await updateUser(userDB.id, userDB);
     } else {
       cid = req.params.cid;
     }
 
     // actualizar carrito si es el mismo del usuario
-    if (userDB.cartId._id.toString() == cid.toString()) {
+    if (userDB.cartId == cid) {
       await updateCart(cid, { product: pid, quantity: quantity });
      
       // actualizar token
-      const token = await regenerateToken(userDB);
+      const token = await getToken(userDB);
       res.cookie("token", token, {
         httpOnly: true,
         maxAge: 3600000,
@@ -69,7 +70,7 @@ export const postCart = async (req, res) => {
       });
 
     } else {
-      res.redirect("/errorLogin");
+      return res.redirect("/errorLogin");
     }
 
     res.redirect(`/carts/${cid}`);

@@ -1,9 +1,10 @@
 import fs from "fs";
+import { __dirname } from "../../../utils/path.js";
 
 class CartManager {
   constructor() {
     this.carts = [];
-    this.path = "./carritos.json";
+    this.path = __dirname + "/persistencia/files/carts.json";
     this.id = 1;
   }
 
@@ -47,11 +48,12 @@ class CartManager {
     }
   }
 
-  async getCartById(id) {
+  async getOneCart(option) {
     try {
       this.carts = await this.getCarts();
-      if (this.carts.some((x) => x.id == id)) {
-        return this.carts.find((x) => x.id == id);
+      if (this.carts.some((cart) => cart.id == option.id)) {
+        const cart = this.carts.find((cart) => cart.id == option.id);
+        return [cart];
       } else {
         return "Not Found";
       }
@@ -60,23 +62,21 @@ class CartManager {
     }
   }
 
-  async updateCart(id, product, quantity) {
+  async updateCart(id, product) {
     try {
-      const cart = await this.getCartById(id);
-
-      if (cart != "Not Found") {
-        if (cart.products.some((x) => x.product == product)) {
-          //TODO: PENSAR SI LA LOGICA DE SUMAR CANTIDAD NO ES MEJOR HACERLA EN EL FRONT
-          cart.products.find((x) => x.product == product).quantity += quantity;
-        } else {
-          cart.products.push({ product, quantity });
+      const cart = await this.getOneCart({ id });
+      const carts = await this.getCarts();
+       if (cart != "Not Found") {
+        if (cart[0].products.some((x) => x.product == product.products[0].product)) {
+          cart[0].products.map((x) =>
+            x.product == product.product ? product : x
+          );
         }
-
-        this.carts.map((x) => (x.id == id ? cart : x));
-
+        const newCarts = carts.map(x => x.id == id ? product : x)
+        
         await fs.promises.writeFile(
           this.path,
-          JSON.stringify(this.carts, null, 2),
+          JSON.stringify(newCarts, null, 2),
           "utf-8"
         );
         return cart;

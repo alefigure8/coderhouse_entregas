@@ -15,6 +15,7 @@ class CartManager {
   // Obtener el carrito y sus productos
   async getOneCart(option) {
     try {
+      option = option?.id ? { _id: option.id } : option;
       const cart = await cartsModel.find(option).lean();
       return cart;
     } catch (error) {
