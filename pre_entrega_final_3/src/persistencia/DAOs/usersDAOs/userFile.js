@@ -1,5 +1,6 @@
 import fs from "fs";
 import { __dirname } from "../../../utils/path.js";
+import { cartsDAOs } from "../../factory.js";
 
 class UserManager {
   constructor() {
@@ -53,15 +54,20 @@ class UserManager {
         if (
           this.users.some((user) =>
             option.id != undefined
-              ? user.id == option._id
+              ? user.id == option.id
               : user.email == option.email
           )
         ) {
           const user = users.find((user) =>
             option.id != undefined
-              ? user.id == option._id
+              ? user.id == option.id
               : user.email == option.email
           );
+
+          //Agregar carrito al usuario
+          // const carts = await cartsDAOs.getCarts();
+          // const cart = carts.find((cart) => cart.id == user.cartId);
+          // user.cartId = cart;
           return user;
         }
       } else {
