@@ -15,6 +15,7 @@ class UsersManager {
   // GET USER BY ID
   async getOneUser(option) {
     try {
+      option = option?.id ? { _id: option.id } : option;
       const user = await usersModels.findOne(option).lean();
       return user;
     } catch (error) {
