@@ -7,7 +7,7 @@ import UserResponseDTO from "../persistencia/DTOs/usersResponse.dto.js";
 // Get One User by id
 export const findUserById = async (id) => {
   try {
-    const user = await usersDAOs.getOneUser({ _id: id });
+    const user = await usersDAOs.getOneUser({ id });
     return user;
   } catch (error) {
     throw new Error(error);
@@ -17,7 +17,7 @@ export const findUserById = async (id) => {
 //get One user by email
 export const findUserByEmail = async (email) => {
   try {
-    const user = await usersDAOs.getOneUser({ email: email });
+    const user = await usersDAOs.getOneUser({ email });
 
     return new UserResponseDTO(user);
   } catch (error) {
@@ -54,6 +54,7 @@ export const getUserToken = async (user) => {
   }
 };
 
+// Get Token
 export const getToken = async (user) => {
   const userDTO = new UserDBDTO(user);
 
@@ -62,18 +63,6 @@ export const getToken = async (user) => {
   if (userExist.role == "Admin") {
     userExist.isAdmin = true;
   }
-
-  const userResponse = new UserResponseDTO(userExist);
-  const token = await generateToken(new UserResponseDTO({ ...userResponse }));
-
-  return token;
-};
-
-// CORRECTION
-export const regenerateToken = async (user) => {
-  const userDTO = new UserDBDTO(user);
-
-  const userExist = await usersDAOs.getOneUser({ email: userDTO.email });
 
   const userResponse = new UserResponseDTO(userExist);
   const token = await generateToken({ ...userResponse });
