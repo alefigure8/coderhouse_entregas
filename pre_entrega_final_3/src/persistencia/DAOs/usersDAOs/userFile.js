@@ -67,7 +67,7 @@ class UserManager {
           //Agregar carrito al usuario
           // const carts = await cartsDAOs.getCarts();
           // const cart = carts.find((cart) => cart.id == user.cartId);
-          // user.cartId = cart;
+          // user.cartId = [cart];
           return user;
         }
       } else {
@@ -77,6 +77,7 @@ class UserManager {
       throw new Error(error);
     }
   }
+
   async updateUser(id, user) {
     try {
       const users = await this.findAll();
@@ -95,6 +96,7 @@ class UserManager {
       throw new Error(error);
     }
   }
+
   async deleteUser(id) {
     try {
       const users = await this.findAll();

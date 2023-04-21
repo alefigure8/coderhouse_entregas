@@ -1,5 +1,6 @@
 import fs from "fs";
 import { __dirname } from "../../../utils/path.js";
+import { productsDAOs } from "../../factory.js";
 
 class CartManager {
   constructor() {
@@ -51,9 +52,19 @@ class CartManager {
   async getOneCart(option) {
     try {
       this.carts = await this.getCarts();
+
       if (this.carts.some((cart) => cart.id == option.id)) {
         const cart = this.carts.find((cart) => cart.id == option.id);
+        
+        //A cada producto del carrito, le agrego el producto completo
+        cart.products.map(async (x) => {
+          const product = await productsDAOs.findOneProduct(x.product);
+          x.product = product;
+        });
+
+        //Solucionar array en mongo al hacer populate
         return [cart];
+
       } else {
         return "Not Found";
       }
