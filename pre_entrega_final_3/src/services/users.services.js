@@ -8,7 +8,8 @@ import UserResponseDTO from "../persistencia/DTOs/usersResponse.dto.js";
 export const findUserById = async (id) => {
   try {
     const user = await usersDAOs.getOneUser({ id });
-    return user;
+    const userResponse = new UserResponseDTO(user);
+    return userResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -18,8 +19,8 @@ export const findUserById = async (id) => {
 export const findUserByEmail = async (email) => {
   try {
     const user = await usersDAOs.getOneUser({ email });
-
-    return new UserResponseDTO(user);
+    const userResponse = new UserResponseDTO(user);
+    return userResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -31,6 +32,7 @@ export const getUserToken = async (user) => {
     const userDTO = new UserDBDTO(user);
 
     const userExist = await usersDAOs.getOneUser({ email: userDTO.email });
+
     if (!userExist) {
       throw new Error("User or Password incorrect");
     }
