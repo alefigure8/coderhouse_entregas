@@ -1,6 +1,5 @@
 import fs from "fs";
 import { __dirname } from "../../../utils/path.js";
-import { cartsDAOs } from "../../factory.js";
 
 class UserManager {
   constructor() {
@@ -33,7 +32,7 @@ class UserManager {
     try {
       this.users = await this.findAll();
       user.id = this.#generateId();
-      console.log(user);
+
       this.users.push(user);
       await fs.promises.writeFile(
         this.path,
@@ -64,10 +63,6 @@ class UserManager {
               : user.email == option.email
           );
 
-          //Agregar carrito al usuario
-          // const carts = await cartsDAOs.getCarts();
-          // const cart = carts.find((cart) => cart.id == user.cartId);
-          // user.cartId = [cart];
           return user;
         }
       } else {
