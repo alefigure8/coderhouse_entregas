@@ -17,15 +17,15 @@ export const getCart = async (req, res) => {
     const userDB = await findUserById(user.id);
     const cart = await findOneCart(userDB.cartId);
 
-    if (cart[0].products.length > 0) {
+    if (cart.products.length > 0) {
       //Agregar referencia al carrito en cada producto
-      cart[0].products.forEach((x) => (x.idCart = cid));
+      cart.products.forEach((x) => (x.idCart = cid));
     }
 
     res.render("carts", {
       user: userDB,
       idCart: cid,
-      cart: cart[0].products,
+      cart: cart.products,
       titulo: "CARRITO",
     });
   } else {

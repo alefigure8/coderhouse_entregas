@@ -30,8 +30,8 @@ export const addCart = async () => {
 export const updateCart = async (id, obj) => {
   try {
     const cart = await cartsDAOs.getOneCart({id});
-    cart[0].products = [ ...cart[0].products, obj];
-    const updatedCart = await cartsDAOs.updateCart(id, cart[0]);
+    cart.products = [ ...cart.products, obj];
+    const updatedCart = await cartsDAOs.updateCart(id, cart);
     return updatedCart;
   } catch (error) {
     throw new Error(error);
