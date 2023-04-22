@@ -55,7 +55,7 @@ class CartManager {
 
       if (this.carts.some((cart) => cart.id == option.id)) {
         const cart = this.carts.find((cart) => cart.id == option.id);
-        
+
         //A cada producto del carrito, le agrego el producto completo
         cart.products.map(async (x) => {
           const product = await productsDAOs.findOneProduct(x.product);
@@ -63,8 +63,7 @@ class CartManager {
         });
 
         //Solucionar array en mongo al hacer populate
-        return [cart];
-
+        return cart;
       } else {
         return "Not Found";
       }
@@ -75,16 +74,40 @@ class CartManager {
 
   async updateCart(id, product) {
     try {
-      const cart = await this.getOneCart({ id });
+      let cart = await this.getOneCart({ id });
       const carts = await this.getCarts();
-       if (cart != "Not Found") {
-        if (cart[0].products.some((x) => x.product == product.products[0].product)) {
-          cart[0].products.map((x) =>
-            x.product == product.product ? product : x
-          );
-        }
-        const newCarts = carts.map(x => x.id == id ? product : x)
+      if (cart != "Not Found") {
         
+        //Desarmar objeto para guardarlo en el archivo
+        const cartModify = product.products.map((x) =>
+          {
+            if (typeof x.product === "object") {
+              return { product: x.product.id.toString(), quantity: x.quantity };
+            } else {
+              return x;
+            }
+          }
+        );
+
+        //Si el producto ya existe en el carrito, se actualiza la cantidad
+        const productsGrouped = cartModify.reduce((acc, product) => {
+          const { product: id, quantity } = product;
+          const productFound = acc.find((product) => product.product === id);
+          if (productFound) {
+              const { quantity: quantityFound } = productFound;
+              if (quantityFound < quantity) {
+                  productFound.quantity = quantity;
+              }
+          } else {
+              acc.push(product);
+          }
+          return acc;
+      }, []);
+
+      cart.products = productsGrouped;
+
+        const newCarts = carts.map((x) => (x.id == id ? cart : x));
+
         await fs.promises.writeFile(
           this.path,
           JSON.stringify(newCarts, null, 2),
