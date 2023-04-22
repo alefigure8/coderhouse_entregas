@@ -77,35 +77,36 @@ class CartManager {
       let cart = await this.getOneCart({ id });
       const carts = await this.getCarts();
       if (cart != "Not Found") {
-        
-        //Desarmar objeto para guardarlo en el archivo
-        const cartModify = product.products.map((x) =>
-          {
-            if (typeof x.product === "object") {
-              return { product: x.product.id.toString(), quantity: x.quantity };
-            } else {
-              return x;
-            }
+
+        // Desarmar objeto para guardarlo en el archivo
+        const cartModify = cart.products.map((x) => {
+          if (typeof x.product === "object") {
+            return { product: x.product.id.toString(), quantity: x.quantity };
+          } else {
+            return x;
           }
-        );
+        });
+
+        cart.products = cartModify;
+
+        //Agregar el producto al carrito
+        cart.products.push(product);
 
         //Si el producto ya existe en el carrito, se actualiza la cantidad
-        const productsGrouped = cartModify.reduce((acc, product) => {
+        const productsGrouped = cart.products.reduce((acc, product) => {
           const { product: id, quantity } = product;
           const productFound = acc.find((product) => product.product === id);
           if (productFound) {
-              const { quantity: quantityFound } = productFound;
-              if (quantityFound < quantity) {
-                  productFound.quantity = quantity;
-              }
+            productFound.quantity = quantity;
           } else {
-              acc.push(product);
+            acc.push(product);
           }
           return acc;
-      }, []);
+        }, []);
 
-      cart.products = productsGrouped;
+        cart.products = productsGrouped;
 
+        // Agregar carrito al array de carritos
         const newCarts = carts.map((x) => (x.id == id ? cart : x));
 
         await fs.promises.writeFile(
