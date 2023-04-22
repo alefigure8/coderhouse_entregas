@@ -1,7 +1,7 @@
 import { cartsModel } from "../../mongoDB/model/carts.model.js";
+import mongoose from "mongoose";
 
 class CartManager {
-
   // Obtener todos los carritos (Solo para desarrollo. Borrar!)
   async getCarts() {
     try {
@@ -17,13 +17,13 @@ class CartManager {
     try {
       option = option?.id ? { _id: option.id } : option;
       const cart = await cartsModel.find(option).lean();
-      return cart;
+      return cart[0];
     } catch (error) {
       throw new Error(error);
     }
   }
 
- // Crear un carrito
+  // Crear un carrito
   async addCart() {
     try {
       const cart = {};
@@ -35,9 +35,24 @@ class CartManager {
     }
   }
 
-     async updateCart(id, product) {
+  async updateCart(id, product) {
     try {
-      const updatedCart = await cartsModel.findByIdAndUpdate(id, product, {new: true});
+
+      const cart = await cartsModel.findById(id);
+
+      const productCart = cart.products.find(
+        (x) => x.product.toString() == product.product.toString()
+      );
+
+      if (productCart) {
+        productCart.quantity = product.quantity;
+      } else {
+        cart.products.push(product);
+      }
+
+      const updatedCart = await cartsModel.findByIdAndUpdate(id, cart, {
+        new: true,
+      });
       return updatedCart;
     } catch (error) {
       throw new Error(error);
@@ -52,7 +67,7 @@ class CartManager {
     } catch (error) {
       throw new Error(error);
     }
-  } 
+  }
 }
 
 export default CartManager;
