@@ -35,7 +35,6 @@ class MessageManager {
       newmsg.id = this.#generateId();
       newmsg.fecha = new Date();
       this.message.push(newmsg);
-      console.log(this.message)
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(this.message, null, 2),
