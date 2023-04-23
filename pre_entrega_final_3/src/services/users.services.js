@@ -82,10 +82,8 @@ export const createUser = async (user) => {
     if (userExist) throw new Error("User not found");
 
     userDTO.password = await hashearPassword(userDTO.password);
-
     const newUser = await usersDAOs.addUser(userDTO);
     const userResponse =  new UserResponseDTO(newUser);
-
     return userResponse;
   } catch (error) {
     throw new Error(error);

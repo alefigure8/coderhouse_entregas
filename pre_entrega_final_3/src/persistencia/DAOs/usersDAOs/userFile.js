@@ -39,6 +39,7 @@ class UserManager {
         JSON.stringify(this.users, null, 2),
         "utf-8"
       );
+      return user;
     } catch (error) {
       throw new Error(error);
     }
