@@ -3,7 +3,7 @@
     {
       "id": 1,
       "code": "1",
-      "title": "Producto 1",
+      "title": "PRODUCTO 1",
       "description": "Producto 1",
       "thumbnail": [
         "https://picsum.photos/200/300"
@@ -16,7 +16,7 @@
     {
       "id": 2,
       "code": "2",
-      "title": "Producto 2",
+      "title": "PRODUCTO 2",
       "description": "Producto 2",
       "thumbnail": [
         "https://picsum.photos/200/300"
@@ -29,7 +29,7 @@
     {
       "id": 3,
       "code": "3",
-      "title": "Producto 3",
+      "title": "PRODUCTO 3",
       "description": "Producto 3",
       "thumbnail": [
         "https://picsum.photos/200/300"
@@ -42,7 +42,7 @@
     {
       "id": 4,
       "code": "4",
-      "title": "Producto 4",
+      "title": "PRODUCTO 4",
       "description": "Producto 4",
       "thumbnail": [
         "https://picsum.photos/200/300"
@@ -55,8 +55,21 @@
     {
       "id": 5,
       "code": "5",
-      "title": "Producto 5",
+      "title": "PRODUCTO 5",
       "description": "Producto 5",
+      "thumbnail": [
+        "https://picsum.photos/200/300"
+      ],
+      "price": "100",
+      "stock": "100",
+      "category": "Category",
+      "status": true
+    },
+    {
+      "id": 6,
+      "code": "6",
+      "title": "PRODUCTO 6",
+      "description": "PRODUCTO 6",
       "thumbnail": [
         "https://picsum.photos/200/300"
       ],

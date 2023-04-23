@@ -5,8 +5,8 @@
     "email": "alejandro@mail.com",
     "age": "39",
     "password": "$2b$10$kHbbWqZVZe13cA5UdaSJ9OpYUScEKfwhVUz69WsdtUwz3lgL.IRD.",
-    "cartId": 1,
-    "role": "User",
+    "cartId": null,
+    "role": "Admin",
     "id": 1,
     "isAdmin": false
   }
