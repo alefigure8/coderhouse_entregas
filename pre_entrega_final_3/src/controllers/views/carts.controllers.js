@@ -41,7 +41,7 @@ export const postCart = async (req, res) => {
   const quantity = req.body.quantity;
   let cid;
 
-  if (user) {
+  if (user && !user.isAdmin) {
     // si no hay carrito en user
     if (!userDB?.cartId) {
       // crear carrito

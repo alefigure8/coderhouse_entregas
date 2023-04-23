@@ -29,7 +29,7 @@ export async function getProduct(req, res) {
 export async function getAddProducts(req, res) {
   try {
     const user = res.user;
-    if (user && user.role == "Admin") {
+    if (user && user.isAdmin) {
       res.render("addProduct", { user, titulo: "PRODUCTOS" });
     } else {
       res.redirect("/products");
@@ -42,7 +42,7 @@ export async function getAddProducts(req, res) {
 export async function postProduct(req, res) {
   const user = res.user;
   try {
-    if (user && user.role == "Admin") {
+    if (user && user.isAdmin) {
       if (
         Object.values(req.body).includes("") ||
         Object.values(req.body).includes(undefined)
@@ -61,7 +61,7 @@ export async function postProduct(req, res) {
 export async function putProduct(req, res) {
   try {
     const user = res.user;
-    if (user && user.role == "Admin") {
+    if (user && user.isAdmin) {
       if (
         Object.values(req.body).includes("") ||
         Object.values(req.body).includes(undefined)
@@ -80,7 +80,7 @@ export async function putProduct(req, res) {
 export async function deleteProductById(req, res) {
   try {
     const user = res.user;
-    if (user && user.role == "Admin") {
+    if (user && user.isAdmin) {
       await deleteProduct(req.params.id);
     }
     res.status(200).redirect("/products");
