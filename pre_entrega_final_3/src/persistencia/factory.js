@@ -5,15 +5,18 @@ import { config } from "../utils/config.js";
 import CartMongo from "../persistencia/DAOs/cartsDAOs/cartsMongo.js";
 import ProductsMongo from "../persistencia/DAOs/productsDAOs/productsMongo.js";
 import UsersMongo from "../persistencia/DAOs/usersDAOs/usersMongo.js";
+import MessageManeger from "../persistencia/DAOs/messageDAOs/messagesMongo.js";
 
 // FILES MANAGERS
 import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
 import UserFile from "../persistencia/DAOs/usersDAOs/userFile.js";
 import CartFile from "../persistencia/DAOs/cartsDAOs/cartsFile.js";
+// import MessageManager from files
 
 export let usersDAOs;
 export let productsDAOs;
 export let cartsDAOs;
+export let messagesDAOs;
 
 switch (config.persistence) {
   case "Mongoose":
@@ -22,6 +25,7 @@ switch (config.persistence) {
       usersDAOs = new UsersMongo();
       productsDAOs = new ProductsMongo();
       cartsDAOs = new CartMongo();
+      messagesDAOs = new MessageManeger();
 
       // Iniciamos la conexion a la base de datos
       mongoDB();
@@ -32,5 +36,6 @@ switch (config.persistence) {
     productsDAOs = new ProductFile();
     usersDAOs = new UserFile();
     cartsDAOs = new CartFile();
+    // messagesDAOs = new MessageManager();
   }
 }

@@ -1,4 +1,5 @@
 import express from "express";
+import { Server } from "socket.io";
 import { __dirname } from "././utils/path.js";
 import { config } from "./utils/config.js";
 import cookieParser from "cookie-parser";
@@ -54,4 +55,15 @@ const serverHTTP = app.listen(config.port, () => {
 //MANEJO DE ERRORES
 serverHTTP.on("error", (error) => {
   console.log(`Server error: ${error}`);
+});
+
+
+//SOCKET IO
+export const io = new Server(serverHTTP);
+
+io.on("connection", (socket) => {
+  // CLiente conectado
+  socket.on('newUser', user => {
+    socket.broadcast.emit('broadcast', user);
+  })
 });

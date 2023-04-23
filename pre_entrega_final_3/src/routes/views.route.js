@@ -23,7 +23,8 @@ import {
   githubAuthenticateFailure,
 } from "../middlewares/passport.js";
 import { getCart, postCart } from "../controllers/views/carts.controllers.js";
-
+import {getChat, postChat}
+ from '../controllers/views/message.controllers.js'
 const router = Router();
 
 // PRODUCTS
@@ -50,5 +51,8 @@ router.get("/profile", jwtAuth, getProfile);
 // ERROR
 router.get("/errorLogin", getErrorLogin);
 router.get("/errorRegister", getErrorRegister);
+
+// CHAT
+router.route('/chat').get(jwtAuth, getChat).post(jwtAuth, postChat);
 
 export default router;
