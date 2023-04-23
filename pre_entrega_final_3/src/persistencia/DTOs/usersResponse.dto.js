@@ -4,7 +4,7 @@ export default class UserssResponse {
     this.firstname = user.firstname;
     this.lastname = user.lastname;
     this.email = user.email;
-    this.password = user.password;
+   // this.password = user.password;
     this.role = user.role || "user";
     this.isAdmin = user.isAdmin || false;
     this.cartId = user.cartId || null;

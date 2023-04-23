@@ -26,6 +26,7 @@ class UsersManager {
   // UPDATE
   async updateUser(id, user){
     try {
+      console.log(user)
       const newuser = await usersModels.findByIdAndUpdate(id, user, {new: true}).lean();
       return newuser;
     } catch (error) {

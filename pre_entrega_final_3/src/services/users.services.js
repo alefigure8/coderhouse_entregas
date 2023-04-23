@@ -84,8 +84,9 @@ export const createUser = async (user) => {
     userDTO.password = await hashearPassword(userDTO.password);
 
     const newUser = await usersDAOs.addUser(userDTO);
+    const userResponse =  new UserResponseDTO(newUser);
 
-    return new UserResponseDTO(newUser);
+    return userResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -94,11 +95,13 @@ export const createUser = async (user) => {
 // Update User
 export const updateUser = async (id, user) => {
   try {
+
     if (Object.keys(user) == "password")
       user.password = await hashearPassword(user.password);
 
     const editedUser = await usersDAOs.updateUser(id, user);
-    return editedUser;
+    const userResponse =  new UserResponseDTO(editedUser);
+    return userResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -108,7 +111,8 @@ export const updateUser = async (id, user) => {
 export const deleteUser = async (id) => {
   try {
     const deleteUser = await usersDAOs.deleteUser(id);
-    return deleteUser;
+    const userResponse =  new UserResponseDTO(deleteUser);
+    return userResponse;
   } catch (error) {
     throw new Error(error);
   }

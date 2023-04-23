@@ -15,7 +15,7 @@ export const getUser = async (req, res) => {
     if (!user) return res.status(404).json({ error: "User not found" });
     
     // Chequear si el usuario es el mismo o es admin
-    if(user._id.toString() != req.user._id.toString() && user.role != 'Admin') return res.status(401).json({error: "Unauthorized"});
+    if(user._id != req.user._id && user.isAdmin) return res.status(401).json({error: "Unauthorized"});
 
     res.status(200).json(user);
   } catch (error) {
@@ -57,7 +57,7 @@ export const putUser = async (req, res) => {
     }
 
     // Chequear si el usuario es el mismo o es admin
-    if(user._id.toString() != req.user._id.toString() && user.role != 'Admin') return res.status(401).json({error: "Unauthorized"});
+    if(user._id!= req.user._id && user.isAdmin) return res.status(401).json({error: "Unauthorized"});
 
     // Chequear si hay datos vacios
     if (
@@ -84,7 +84,7 @@ export const deleteUserById = async (req, res) => {
     }
 
     // Chequear si el usuario es el mismo o es admin
-    if(user._id.toString() != req.user._id.toString() && user.role != 'Admin') return res.status(401).json({error: "Unauthorized"});
+    if(user._id!= req.user._id && user.isAdmin) return res.status(401).json({error: "Unauthorized"});
 
     const userDeleted = await deleteUser(req.params.id);
     res.status(200).json(userDeleted);
