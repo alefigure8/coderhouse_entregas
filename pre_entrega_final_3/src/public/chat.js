@@ -40,6 +40,7 @@ if (!usuario) {
   socket.emit("newUser", usuario);
 }
 
+
 socket.on("messages", (messages) => {
 
   // Renderizar mensajes
