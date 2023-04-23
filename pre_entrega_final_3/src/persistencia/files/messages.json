@@ -10,5 +10,11 @@
     "mensaje": "Cómo estás?",
     "id": 2,
     "fecha": "2023-04-23T13:26:04.976Z"
+  },
+  {
+    "usuario": "Barry",
+    "mensaje": "Hola, Pedro!",
+    "id": 3,
+    "fecha": "2023-04-23T13:34:37.110Z"
   }
 ]
