@@ -7,6 +7,7 @@ class MessageManeger{
     async getMessages(){
         try{
             this.messages = await messagesModel.find().lean();
+            console.log(this.messages)
             return this.messages;
         }catch(error){
             throw new Error(error);

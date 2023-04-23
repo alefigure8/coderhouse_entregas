@@ -1,0 +1,14 @@
+[
+  {
+    "usuario": "Pedro",
+    "mensaje": "Hola",
+    "id": 1,
+    "fecha": "2023-04-23T13:25:41.534Z"
+  },
+  {
+    "usuario": "Pedro",
+    "mensaje": "Cómo estás?",
+    "id": 2,
+    "fecha": "2023-04-23T13:26:04.976Z"
+  }
+]

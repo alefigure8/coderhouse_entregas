@@ -11,7 +11,7 @@ import MessageManeger from "../persistencia/DAOs/messageDAOs/messagesMongo.js";
 import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
 import UserFile from "../persistencia/DAOs/usersDAOs/userFile.js";
 import CartFile from "../persistencia/DAOs/cartsDAOs/cartsFile.js";
-// import MessageManager from files
+import MessageManager from "../persistencia/DAOs/messageDAOs/messageFile.js";
 
 export let usersDAOs;
 export let productsDAOs;
@@ -36,6 +36,6 @@ switch (config.persistence) {
     productsDAOs = new ProductFile();
     usersDAOs = new UserFile();
     cartsDAOs = new CartFile();
-    // messagesDAOs = new MessageManager();
+    messagesDAOs = new MessageManager();
   }
 }
