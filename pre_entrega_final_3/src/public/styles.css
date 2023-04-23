@@ -391,6 +391,15 @@ textarea {
   margin-bottom: 5px;
 }
 
+.disabledInput{
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+.disabledSubmit{
+  cursor: not-allowed;
+}
+
 /* REGISTER */
 .register {
   display: flex;
