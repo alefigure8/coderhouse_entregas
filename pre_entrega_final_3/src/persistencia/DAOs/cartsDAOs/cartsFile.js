@@ -56,13 +56,11 @@ class CartManager {
       if (this.carts.some((cart) => cart.id == option.id)) {
         const cart = this.carts.find((cart) => cart.id == option.id);
 
-        //A cada producto del carrito, le agrego el producto completo
-        cart.products.map(async (x) => {
+        await Promise.all(cart.products.map(async (x) => {
           const product = await productsDAOs.findOneProduct(x.product);
           x.product = product;
-        });
+        }));
 
-        //Solucionar array en mongo al hacer populate
         return cart;
       } else {
         return "Not Found";
@@ -80,8 +78,8 @@ class CartManager {
 
         // Desarmar objeto para guardarlo en el archivo
         const cartModify = cart.products.map((x) => {
-          if (typeof x.product === "object") {
-            return { product: x.product.id.toString(), quantity: x.quantity };
+          if (typeof x.product === "object" ) {
+            return { product: parseInt(x.product.id), quantity: parseInt(x.quantity) };
           } else {
             return x;
           }
@@ -104,7 +102,9 @@ class CartManager {
           return acc;
         }, []);
 
+        
         cart.products = productsGrouped;
+        cart.products = cart.products.filter((x) => x.quantity > 0);
 
         // Agregar carrito al array de carritos
         const newCarts = carts.map((x) => (x.id == id ? cart : x));
