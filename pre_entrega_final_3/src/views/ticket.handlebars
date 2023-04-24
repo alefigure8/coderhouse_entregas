@@ -1,0 +1,28 @@
+<div class="cart">
+  {{#if cart.length}}
+  <h3 class="textCenter">¡Gracias por su compra!</h1>
+  <h1>Ticket N° {{ticket.code}}</h1>
+    {{#each cart}}
+      <div class="cartDescriptionTicket">
+        <p class="textLeft">{{product.title}}</p>
+        <p class="textRight">Precio: ${{product.price}}</p>
+        <p class="textRight">{{quantity}}</p>
+      </div>
+    {{/each}}
+    <div class="ticketAmount">TOTAL: $ {{ticket.amount}}</div>
+
+    {{else}}
+      <p>Verifique que el stock que desea comprar no supere el stock del producto</p>
+    {{/if}}
+</div>
+
+{{!-- SCRIPT --}}
+<link
+  href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin/wordpress-admin.css"
+  rel="stylesheet"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"
+></script>
+<script src="/socket.io/socket.io.js" ></script>
+<script src="/index.js"></script>

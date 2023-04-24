@@ -22,11 +22,12 @@
                 {{else}}
                    <form action="/0/product/{{product.id}}" method="POST">
                     <input type="number" name="quantity" id="quantity" min="1" value="1">
-                    <button type="submit" class="btn">AGREGAR A CARRITO</button>
+                    <button type="submit" class="btn {{#if user.isAdmin}}disabledSubmit{{/if}}" {{#if user.isAdmin}} disabled {{/if}}>AGREGAR A CARRITO</button>
                 </form>
                 {{/if}}
             {{else}}
-                <button type="button" onclick="window.location.href='/login'" class="btn">AGREGAR A CARRITO</button>
+                <button type="button" onclick="window.location.href='/login'" 
+                class="btn">AGREGAR A CARRITO</button>
             {{/if}}
         </div>
     </div>

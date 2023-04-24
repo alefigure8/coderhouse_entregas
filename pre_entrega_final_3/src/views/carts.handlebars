@@ -10,6 +10,14 @@
       </div>
     {{/each}}
     <input type="submit" class="btn" id="btnVaciarCarrito" id-cart="{{idCart}}" value="VACIAR">
+    <form action="/{{idCart}}/purchase" method="POST">
+      <input type="hidden" name="usuario" id="usuario" value="{{user}}"/>
+      <input type="submit" class="btn" id="btnVaciarCarrito" id-cart="{{idCart}}" value="COMPRAR"
+        {{#if user}}
+            disabled
+          {{/if}}
+      />
+    </form>
     {{else}}
       <p>El carrito está vacío</p>
     {{/if}}
