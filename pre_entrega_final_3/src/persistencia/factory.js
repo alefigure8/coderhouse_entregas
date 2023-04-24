@@ -12,11 +12,13 @@ import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
 import UserFile from "../persistencia/DAOs/usersDAOs/userFile.js";
 import CartFile from "../persistencia/DAOs/cartsDAOs/cartsFile.js";
 import MessageManager from "../persistencia/DAOs/messageDAOs/messageFile.js";
+import TicketManager from "../persistencia/DAOs/ticketsDATOs/ticketsMongo.js";
 
 export let usersDAOs;
 export let productsDAOs;
 export let cartsDAOs;
 export let messagesDAOs;
+export let ticketsDAOs;
 
 switch (config.persistence) {
   case "Mongoose":
@@ -26,6 +28,7 @@ switch (config.persistence) {
       productsDAOs = new ProductsMongo();
       cartsDAOs = new CartMongo();
       messagesDAOs = new MessageManeger();
+      ticketsDAOs = new TicketManager();
 
       // Iniciamos la conexion a la base de datos
       mongoDB();

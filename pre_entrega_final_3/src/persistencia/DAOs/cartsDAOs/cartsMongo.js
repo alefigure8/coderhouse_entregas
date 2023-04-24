@@ -35,22 +35,33 @@ class CartManager {
     }
   }
 
+//  async updateCart(id, product) {
+//     try {
+//       const cart = await cartsModel.findById(id);
+
+//       const productCart = cart.products.find(
+//         (x) => x.product == product.product
+//       );
+
+//       if (productCart) {
+//         productCart.quantity = product.quantity;
+//       } else {
+//         cart.products.push(product);
+//       }
+
+//       const updatedCart = await cartsModel.findByIdAndUpdate(id, cart, {
+//         new: true,
+//       });
+//       return updatedCart;
+//     } catch (error) {
+//       throw new Error(error);
+//     }
+//   }
+
+// //BORRAR SI NO FUNCIONA
   async updateCart(id, product) {
     try {
-
-      const cart = await cartsModel.findById(id);
-
-      const productCart = cart.products.find(
-        (x) => x.product.toString() == product.product.toString()
-      );
-
-      if (productCart) {
-        productCart.quantity = product.quantity;
-      } else {
-        cart.products.push(product);
-      }
-
-      const updatedCart = await cartsModel.findByIdAndUpdate(id, cart, {
+      const updatedCart = await cartsModel.findByIdAndUpdate(id, product, {
         new: true,
       });
       return updatedCart;

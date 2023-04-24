@@ -47,7 +47,6 @@ export async function findAllProducts(querys) {
 export async function findOneProductById(id) {
   try {
     const product = await productsDAOs.findOneProduct(id);
-
     if (!product) throw new Error("Product not found");
 
     return product;

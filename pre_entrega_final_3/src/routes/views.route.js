@@ -22,7 +22,7 @@ import {
   githubAuthenticate,
   githubAuthenticateFailure,
 } from "../middlewares/passport.js";
-import { getCart, postCart } from "../controllers/views/carts.controllers.js";
+import { getCart, postCart, postTicket } from "../controllers/views/carts.controllers.js";
 import {getChat, postChat}
  from '../controllers/views/message.controllers.js'
 const router = Router();
@@ -35,6 +35,9 @@ router.get("/addproduct", jwtAuth, getAddProducts);
 //CART
 router.route("/carts/:cid").get(jwtAuth, getCart);
 router.route("/:cid/product/:pid").post(jwtAuth, postCart);
+
+//PURCHASE
+router.post("/:cid/purchase", jwtAuth, postTicket);
 
 //AUTH
 router.route("/login").get(jwtAuth, getLogin).post(postLogin);
