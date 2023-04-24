@@ -83,34 +83,6 @@ export const postCart = async (req, res) => {
   }
 };
 
-// export const putProductInCart = async (req, res) => {
-//   const user = res.user;
-//   const userDB = await findUserById(user.id);
-//   const cid = req.params.cid;
-//   const pid = req.params.pid;
-//   const quantity = req.body.quantity;
-
-//   if (user && !user.isAdmin) {
-//     if (userDB.cartId == cid) {
-//       await updateProductInCart(cid, { product: pid, quantity: quantity });
-
-//       // actualizar token
-//       const token = await getToken(userDB);
-//       res.cookie("token", token, {
-//         httpOnly: true,
-//         maxAge: 3600000,
-//         signed: true,
-//       });
-//     } else {
-//       return res.redirect("/errorLogin");
-//     }
-
-//     res.redirect(`/carts/${cid}`);
-//   } else {
-//     res.redirect("/products");
-//   }
-// };
-
 export const postTicket = async (req, res) => {
   try {
     const user = res.user;

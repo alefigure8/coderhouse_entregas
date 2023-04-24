@@ -1,6 +1,4 @@
 import { cartsDAOs } from "../persistencia/factory.js";
-import CartResponseDTO from "../persistencia/DTOs/cartsResponse.js";
-import mongoose from "mongoose";
 
 export const findAllCarts = async () => {
   try {
@@ -56,32 +54,6 @@ export const updateCart = async (id, obj) => {
     throw new Error(error);
   }
 };
-
-// //BORRAR SI NO FUNCIONA
-// export const updateCart = async (id, obj) => {
-//   try {
-//     console.log("id", id);
-//     const cart = await cartsDAOs.getOneCart({ id });
-
-//     const productCart = cart.products.filter((x) => {
-//       const id = x.product._id ? x.product._id : x.product.id;
-//        return id.toString() == obj.product.toString();
-//     });
-
-//      if (productCart) {
-//       productCart.quantity = obj.quantity;
-//     } else {
-//       cart.products.push(obj);
-//     }
-
-//     console.log("cart", cart)
-
-//     const updatedCart = await cartsDAOs.updateCart(id, cart);
-//     return updatedCart;
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
 
 export const deleteCartById = async (id) => {
   try {
