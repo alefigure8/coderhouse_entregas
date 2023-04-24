@@ -9,5 +9,27 @@
     "role": "Admin",
     "id": 1,
     "isAdmin": false
+  },
+  {
+    "firstname": "Pedro",
+    "lastname": "Votefor",
+    "age": "19",
+    "email": "pedro@mail.com",
+    "password": "$2b$10$k0zrodXFNexCaRZdoPACs.J.5SVd5qFsO9nga75mzepbANvIfrNze",
+    "cartId": null,
+    "role": "User",
+    "id": 2,
+    "isAdmin": false
+  },
+  {
+    "firstname": "Barry",
+    "lastname": "Votefor",
+    "age": "10",
+    "email": "barry@mail.com",
+    "password": "$2b$10$kSc2h9Dcts4elL2RY.t5Quh52nXNDj5bO/1Vm0dpE5.hvkDDgr0ba",
+    "cartId": 1,
+    "role": "User",
+    "id": 3,
+    "isAdmin": false
   }
 ]
