@@ -42,6 +42,7 @@ npm run start:dev
 
 - Pre-Entregas
   - [Pre-Entrega 2](https://github.com/alefigure8/coderhouse_entregas/tree/master/pre_entrega_final_2)
+  - [Pre-Entrega 3](https://github.com/alefigure8/coderhouse_entregas/tree/master/pre_entrega_final_3)
 
 - Re-Build
   - [Rebuild 1](https://github.com/alefigure8/coderhouse_entregas/tree/master/rebuild_1)
