@@ -1,4 +1,6 @@
 import { cartsDAOs } from "../persistencia/factory.js";
+import CartsResponseDTO from "../persistencia/DTOs/cartsResponse.dto.js";
+import CartDB from "../persistencia/DTOs/cartDB.dto.js";
 
 export const findAllCarts = async () => {
   try {
@@ -12,7 +14,8 @@ export const findAllCarts = async () => {
 export const findOneCart = async (id) => {
   try {
     const cart = await cartsDAOs.getOneCart({ id });
-    return cart;
+    const cartResponse = new CartsResponseDTO(cart);
+    return cartResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -21,7 +24,8 @@ export const findOneCart = async (id) => {
 export const addCart = async () => {
   try {
     const cart = await cartsDAOs.addCart();
-    return cart;
+    const cartResponse = new CartsResponseDTO(cart);
+    return cartResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -30,26 +34,31 @@ export const addCart = async () => {
 export const updateCart = async (id, obj) => {
   try {
     const cart = await cartsDAOs.getOneCart({ id });
+    const cartResponse = new CartsResponseDTO(cart);  
+    
     let updatedCart;
-
+    
     if (Array.isArray(obj.products)) {
-      updatedCart = await cartsDAOs.updateCart(id, obj);
+      const cartData = new CartDB(id, obj);
+      updatedCart = await cartsDAOs.updateCart(id, cartData);
       
     } else {
       if (
-        cart.products.some(
-          (x) => x.product._id.toString() == obj.product.toString()
+        cartResponse.products.some(
+          (x) => x.product.id.toString() == obj.product.toString()
         )
       ) {
         await updateProductInCart(id, obj.product, obj);
         return;
       }
 
-      cart.products.push(obj);
-      updatedCart = await cartsDAOs.updateCart(id, cart);
+      const cartData = new CartDB(id, cart);
+      cartData.products.push(obj);
+      
+      updatedCart = await cartsDAOs.updateCart(id, cartData);
     }
-
-    return updatedCart;
+    const updatedCartResponse = new CartsResponseDTO(updatedCart);
+    return updatedCartResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -67,15 +76,15 @@ export const deleteCartById = async (id) => {
 export const updateProductInCart = async (id, pid, product) => {
   try {
     const cart = await cartsDAOs.getOneCart({ id });
-
-    cart.products = cart.products.map((prod) => {
-      if (prod.product._id == pid) {
+    const cartResponse = new CartsResponseDTO(cart);
+    cart.products = cartResponse.products.map((prod) => {
+      if (prod.product.id == pid) {
         prod.quantity = product.quantity;
       }
       return prod;
     });
-
-    const updatedCart = await cartsDAOs.updateCart(id, cart);
+    const cartData = new CartDB(id, cartResponse);
+    const updatedCart = await cartsDAOs.updateCart(id, cartData);
     return updatedCart;
   } catch (error) {
     throw new Error(error);
@@ -85,12 +94,12 @@ export const updateProductInCart = async (id, pid, product) => {
 export const deleteProductByIdInCart = async (id, pid) => {
   try {
     const cart = await cartsDAOs.getOneCart({ id });
-
-    cart.products = cart.products.filter((prod) => {
-      return prod.product._id.toString() != pid.toString();
+    const cartResponse = new CartsResponseDTO(cart);  
+    cart.products = cartResponse.products.filter((prod) => {
+      return prod.product.id != pid;
     });
-
-    const updatedCart = await cartsDAOs.updateCart(id, cart);
+    const cartData = new CartDB(id, cartResponse);
+    const updatedCart = await cartsDAOs.updateCart(id, cartData);
     return updatedCart;
   } catch (error) {
     throw new Error(error);

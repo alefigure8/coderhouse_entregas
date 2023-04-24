@@ -113,11 +113,12 @@ export const postTicket = async (req, res) => {
         (x) => x.product.stock < x.quantity
       );
 
+      //await updateCart(cid, { products: removeProducts });
       await updateCart(cid, { products: removeProducts });
 
       //Actualizar stock de productos
       cartStockValid.forEach(async (x) => {
-        const product = await findOneProductById(x.product._id);
+        const product = await findOneProductById(x.product.id);
         product.stock = product.stock - x.quantity;
         await updateProduct(product.id, product);
       });

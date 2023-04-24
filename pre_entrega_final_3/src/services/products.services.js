@@ -1,4 +1,5 @@
 import { productsDAOs } from "../persistencia/factory.js";
+import ProductsResponseDTO from "../persistencia/DTOs/productsResponse.dto.js";
 
 // GET ALL PAGIANTE
 export async function findAllProducts(querys) {
@@ -36,7 +37,8 @@ export async function findAllProducts(querys) {
       }
     });
 
-    const products = await productsDAOs.findAll(query, options);
+    let products = await productsDAOs.findAll(query, options);
+    products.docs = products.docs.map(prod => new ProductsResponseDTO(prod));
     return products;
   } catch (error) {
     throw new Error(error);
@@ -48,8 +50,8 @@ export async function findOneProductById(id) {
   try {
     const product = await productsDAOs.findOneProduct(id);
     if (!product) throw new Error("Product not found");
-
-    return product;
+    const productResponse = new ProductsResponseDTO(product);
+    return productResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -80,7 +82,9 @@ export async function addProduct(product) {
       newProducts.push(newProduct);
     });
 
-    return newProducts;
+    const productResponse = new ProductsResponseDTO(newProducts);
+
+    return productResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -90,7 +94,8 @@ export async function addProduct(product) {
 export async function updateProduct(id, product) {
   try {
     const updatedProduct = await productsDAOs.updateProduct(id, product);
-    return updatedProduct;
+    const productResponse = new ProductsResponseDTO(updatedProduct);
+    return productResponse;
   } catch (error) {
     throw new Error(error);
   }
@@ -100,7 +105,8 @@ export async function updateProduct(id, product) {
 export async function deleteProduct(id) {
   try {
     const deletedProduct = await productsDAOs.delete(id);
-    return deletedProduct;
+    const productResponse = new ProductsResponseDTO(deletedProduct);
+    return productResponse;
   } catch (error) {
     throw new Error(error);
   }

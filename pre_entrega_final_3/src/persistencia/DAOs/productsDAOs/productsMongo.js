@@ -1,5 +1,4 @@
 import { productsModel } from "../../mongoDB/model/products.model.js";
-import ProductsResponse from "../../DTOs/productsResponse.dto.js";
 import ProductDB from "../../DTOs/productsDB.dto.js";
 
 class ProductManager {
@@ -18,9 +17,6 @@ class ProductManager {
   async findAll(query, options) {
     try {
       const products = await productsModel.paginate(query, options);
-
-      products.docs.forEach((product) => product = new ProductsResponse(product));
-
       return products;
     } catch (error) {
       throw new Error(error);
@@ -32,7 +28,6 @@ class ProductManager {
   async findOneProduct(id) {
     try {
       let product = await productsModel.findOne({ _id: id }).lean();
-      product = new ProductsResponse(product);
       return product;
       //return product;
     } catch (error) {
