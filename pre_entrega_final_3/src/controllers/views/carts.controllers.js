@@ -113,7 +113,6 @@ export const postTicket = async (req, res) => {
         (x) => x.product.stock < x.quantity
       );
 
-      //await updateCart(cid, { products: removeProducts });
       await updateCart(cid, { products: removeProducts });
 
       //Actualizar stock de productos

@@ -44,7 +44,7 @@ class ProductManager {
         const response = { docs: [] };
 
         this.products.docs.forEach((product) =>
-          response.docs.push(new ProductsResponse(product))
+          response.docs.push(product)
         );
 
         return response;
@@ -61,9 +61,7 @@ class ProductManager {
     try {
       this.products = await this.findAll();
       if (this.products.docs.some((product) => product.id == id)) {
-        return new ProductsResponse(
-          this.products.docs.find((product) => product.id == id)
-        );
+        return this.products.docs.find((product) => product.id == id)
       } else {
         return "Not Found";
       }
@@ -91,7 +89,7 @@ class ProductManager {
           "utf-8"
         );
 
-        return new ProductsResponse(isProduct);
+        return isProduct;
       }
 
       return "Not Found";
@@ -115,7 +113,7 @@ class ProductManager {
           "utf-8"
         );
 
-        return new ProductsResponse(deleteUser);
+        return deleteUser;
       }
 
       return "Not Found";

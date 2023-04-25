@@ -1,5 +1,4 @@
 import { cartsModel } from "../../mongoDB/model/carts.model.js";
-import mongoose from "mongoose";
 
 class CartManager {
   // Obtener todos los carritos (Solo para desarrollo. Borrar!)
@@ -35,30 +34,7 @@ class CartManager {
     }
   }
 
-//  async updateCart(id, product) {
-//     try {
-//       const cart = await cartsModel.findById(id);
-
-//       const productCart = cart.products.find(
-//         (x) => x.product == product.product
-//       );
-
-//       if (productCart) {
-//         productCart.quantity = product.quantity;
-//       } else {
-//         cart.products.push(product);
-//       }
-
-//       const updatedCart = await cartsModel.findByIdAndUpdate(id, cart, {
-//         new: true,
-//       });
-//       return updatedCart;
-//     } catch (error) {
-//       throw new Error(error);
-//     }
-//   }
-
-// //BORRAR SI NO FUNCIONA
+// Agregar un producto al carrito
   async updateCart(id, product) {
     try {
       const updatedCart = await cartsModel.findByIdAndUpdate(id, product, {

@@ -56,10 +56,12 @@ class CartManager {
       if (this.carts.some((cart) => cart.id == option.id)) {
         const cart = this.carts.find((cart) => cart.id == option.id);
 
-        await Promise.all(cart.products.map(async (x) => {
-          const product = await productsDAOs.findOneProduct(x.product);
-          x.product = product;
-        }));
+        await Promise.all(
+          cart.products.map(async (x) => {
+            const product = await productsDAOs.findOneProduct(x.product);
+            x.product = product;
+          })
+        );
 
         return cart;
       } else {
@@ -70,53 +72,73 @@ class CartManager {
     }
   }
 
+  // async updateCart(id, product) {
+  //   try {
+  //     let cart = await this.getOneCart({ id });
+  //     const carts = await this.getCarts();
+  //     if (cart != "Not Found") {
+
+  //       // Desarmar objeto para guardarlo en el archivo
+  //       const cartModify = cart.products.map((x) => {
+  //         if (typeof x.product === "object" ) {
+  //           return { product: parseInt(x.product.id), quantity: parseInt(x.quantity) };
+  //         } else {
+  //           return x;
+  //         }
+  //       });
+
+  //       cart.products = cartModify;
+
+  //       //Agregar el producto al carrito
+  //       cart.products.push(product);
+
+  //       //Si el producto ya existe en el carrito, se actualiza la cantidad
+  //       const productsGrouped = cart.products.reduce((acc, product) => {
+  //         const { product: id, quantity } = product;
+  //         const productFound = acc.find((product) => product.product === id);
+  //         if (productFound) {
+  //           productFound.quantity = quantity;
+  //         } else {
+  //           acc.push(product);
+  //         }
+  //         return acc;
+  //       }, []);
+
+  //       cart.products = productsGrouped;
+  //       cart.products = cart.products.filter((x) => x.quantity > 0);
+
+  //       // Agregar carrito al array de carritos
+  //       const newCarts = carts.map((x) => (x.id == id ? cart : x));
+
+  //       await fs.promises.writeFile(
+  //         this.path,
+  //         JSON.stringify(newCarts, null, 2),
+  //         "utf-8"
+  //       );
+  //       return cart;
+  //     }
+  //     return "Not Found";
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
+
   async updateCart(id, product) {
     try {
-      let cart = await this.getOneCart({ id });
-      const carts = await this.getCarts();
+      const carts = await this.getCarts(); 
+      const cart = await this.getOneCart({id});
+      
       if (cart != "Not Found") {
-
-        // Desarmar objeto para guardarlo en el archivo
-        const cartModify = cart.products.map((x) => {
-          if (typeof x.product === "object" ) {
-            return { product: parseInt(x.product.id), quantity: parseInt(x.quantity) };
-          } else {
-            return x;
-          }
-        });
-
-        cart.products = cartModify;
-
-        //Agregar el producto al carrito
-        cart.products.push(product);
-
-        //Si el producto ya existe en el carrito, se actualiza la cantidad
-        const productsGrouped = cart.products.reduce((acc, product) => {
-          const { product: id, quantity } = product;
-          const productFound = acc.find((product) => product.product === id);
-          if (productFound) {
-            productFound.quantity = quantity;
-          } else {
-            acc.push(product);
-          }
-          return acc;
-        }, []);
-
-        
-        cart.products = productsGrouped;
-        cart.products = cart.products.filter((x) => x.quantity > 0);
-
-        // Agregar carrito al array de carritos
-        const newCarts = carts.map((x) => (x.id == id ? cart : x));
-
+        const cartUser = carts.filter( x => x.id != id);
+        cartUser.push(product);
         await fs.promises.writeFile(
           this.path,
-          JSON.stringify(newCarts, null, 2),
+          JSON.stringify(cartUser, null, 2),
           "utf-8"
         );
-        return cart;
+
+       return cartUser;
       }
-      return "Not Found";
     } catch (error) {
       throw new Error(error);
     }

@@ -41,7 +41,6 @@ export const updateCart = async (id, obj) => {
     if (Array.isArray(obj.products)) {
       const cartData = new CartDB(id, obj);
       updatedCart = await cartsDAOs.updateCart(id, cartData);
-      
     } else {
       if (
         cartResponse.products.some(
@@ -54,9 +53,9 @@ export const updateCart = async (id, obj) => {
 
       const cartData = new CartDB(id, cart);
       cartData.products.push(obj);
-      
       updatedCart = await cartsDAOs.updateCart(id, cartData);
     }
+
     const updatedCartResponse = new CartsResponseDTO(updatedCart);
     return updatedCartResponse;
   } catch (error) {
