@@ -5,14 +5,16 @@ import { config } from "../utils/config.js";
 import CartMongo from "../persistencia/DAOs/cartsDAOs/cartsMongo.js";
 import ProductsMongo from "../persistencia/DAOs/productsDAOs/productsMongo.js";
 import UsersMongo from "../persistencia/DAOs/usersDAOs/usersMongo.js";
-import MessageManeger from "../persistencia/DAOs/messageDAOs/messagesMongo.js";
+import MessageMongo from "../persistencia/DAOs/messageDAOs/messagesMongo.js";
+import TicketMongo from "../persistencia/DAOs/ticketsDATOs/ticketsMongo.js";
+
 
 // FILES MANAGERS
 import ProductFile from "../persistencia/DAOs/productsDAOs/productsFile.js";
 import UserFile from "../persistencia/DAOs/usersDAOs/userFile.js";
 import CartFile from "../persistencia/DAOs/cartsDAOs/cartsFile.js";
-import MessageManager from "../persistencia/DAOs/messageDAOs/messageFile.js";
-import TicketManager from "../persistencia/DAOs/ticketsDATOs/ticketsMongo.js";
+import MessageFile from "../persistencia/DAOs/messageDAOs/messageFile.js";
+import TicketFile from "../persistencia/DAOs/ticketsDATOs/ticketsFile.js";
 
 export let usersDAOs;
 export let productsDAOs;
@@ -27,8 +29,8 @@ switch (config.persistence) {
       usersDAOs = new UsersMongo();
       productsDAOs = new ProductsMongo();
       cartsDAOs = new CartMongo();
-      messagesDAOs = new MessageManeger();
-      ticketsDAOs = new TicketManager();
+      messagesDAOs = new MessageMongo();
+      ticketsDAOs = new TicketMongo();
 
       // Iniciamos la conexion a la base de datos
       mongoDB();
@@ -39,6 +41,7 @@ switch (config.persistence) {
     productsDAOs = new ProductFile();
     usersDAOs = new UserFile();
     cartsDAOs = new CartFile();
-    messagesDAOs = new MessageManager();
+    messagesDAOs = new MessageFile();
+    ticketsDAOs = new TicketFile();
   }
 }
