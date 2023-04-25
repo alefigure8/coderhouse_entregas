@@ -3,7 +3,7 @@ import { __dirname } from "../../../utils/path.js";
 
 class TicketsManager {
   constructor() {
-    this.path = __dirname + "/peristencia/files/tickets.json";
+    this.path = this.path = __dirname + "/persistencia/files/tickets.json";
     this.id = 1;
     this.tickets = [];
   }
@@ -30,6 +30,7 @@ class TicketsManager {
 
   async addTicket(ticket) {
     try {
+
       this.tickets = await this.getTickets();
       ticket.id = this.#generateId(
         this.path,
@@ -37,7 +38,11 @@ class TicketsManager {
         "utf-8"
       );
       this.tickets.push(ticket);
-      await fs.promises.writeFile();
+
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(this.tickets, null, 2),
+        "utf-8");
     } catch (error) {
       throw new Error(error);
     }

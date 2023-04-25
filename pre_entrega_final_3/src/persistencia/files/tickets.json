@@ -1,0 +1,14 @@
+[
+  {
+    "purcharser": "barry@mail.com",
+    "amount": 100,
+    "code": 874018,
+    "id": 1
+  },
+  {
+    "purcharser": "barry@mail.com",
+    "amount": 400,
+    "code": 222075,
+    "id": 2
+  }
+]
